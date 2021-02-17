@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/profilcss.css">
+
+</head>
+<body>
+
+  <ul>
+    <li><a class="active" th:href="@{/User/showUserProfile}">My Profile</a></li>
+    <li><a th:href="@{/User/showUpdateProfileForm}">Update</a></li>
+      <li><a th:href="@{/User/showUpdateAdressForm}">Address</a></li>
+      <li><a th:href="@{/Product/Home}">Back to Store</a></li>
+  </ul>
+
+  
+  <div class="wrapper">
+    <div class="left">
+        <h4>  <p th:text="${user.getFullname()}"> ></p> </a></h4>
+    </div>
+    <div class="right">
+        <div class="info">
+            <h3>Identity</h3>
+            <div class="info_data">
+                 <div class="data">
+                    <h4>First Name </h4>
+                     <p th:text="${user.getFirstName()}"> ></p>
+                    <h4>Last Name </h4>
+                     <p th:text="${user.getLastName()}"></p>
+                    <h4>Email </h4>
+                     <p th:text="${user.getEmail()}"> </p>
+                 </div>
+
+            </div>
+        </div>
+      
+      <div class="projects">
+            <h3>Address</h3>
+            <div class="projects_data">
+                 <div class="data">
+                     <h4>Street</h4>
+                     <p th:text="${adr.street}"> </p>
+
+                    <h4>City</h4>
+                    <p th:text="${adr.city}"> </p>
+                    <h4>Country</h4>
+                     <p th:text="${adr.country}"> </p>
+                 </div>
+                 <div class="data">
+                     <h4>hause Number</h4>
+                     <p th:text="${adr.hausNumber}"> </p>
+                   <h4>ZIP</h4>
+                     <p th:text="${adr.zip}"> </p>
+              </div>
+            </div>
+        </div>
+      
+       
+    </div>
+</div>
+
+
+</body>
+</html>
