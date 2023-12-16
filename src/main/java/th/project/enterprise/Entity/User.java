@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Builder
 @Entity
@@ -25,6 +26,8 @@ public class User {
     private Adress adress;
 
     private String roles;
+    private Gender gender;
+    private LocalDate dateOfBirth;
 
     @NotNull
     @Size(min = 4)
