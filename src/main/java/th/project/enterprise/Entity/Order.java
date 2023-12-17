@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 
-@Table(name = "order")
+@Table(name = "eorder")
 public class Order {
 
     @Id

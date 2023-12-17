@@ -9,7 +9,8 @@ import java.awt.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "chef")
+@Table(name = "Chef")
+
 public class Chef extends Employee {
 
     private Color colorApron;
