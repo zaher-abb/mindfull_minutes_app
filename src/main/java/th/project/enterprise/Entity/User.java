@@ -7,17 +7,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-@Builder
-@Entity
-@Setter
+
 @Getter
+@Setter
 @AllArgsConstructor
-@Table(name = "euser")
-public class User {
+@NoArgsConstructor // Adding a no-args constructor for subclasses
+@MappedSuperclass // Define User as a mapped superclass
+public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
+
     private String firstName;
     private String lastName;
 
@@ -36,10 +37,6 @@ public class User {
     @NotNull
     @Column(nullable = false, unique = true)
     private String Email;
-
-    public User() {
-        setRoles("USER");
-    }
 
 
     public void setAdress(Adress adress) {

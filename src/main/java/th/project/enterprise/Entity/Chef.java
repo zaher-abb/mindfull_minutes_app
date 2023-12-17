@@ -4,15 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.*;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "customer")
-public class Customer extends User {
+@Table(name = "chef")
+public class Chef extends Employee {
 
-
-    public Customer() {
+    private Color colorApron;
+    public Chef() {
         super();
     }
 

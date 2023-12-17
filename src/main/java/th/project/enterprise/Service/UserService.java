@@ -1,7 +1,7 @@
 package th.project.enterprise.Service;
 
 import th.project.enterprise.Entity.Adress;
-import th.project.enterprise.Entity.User;
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.UserDetail;
 import th.project.enterprise.Repository.UserRepoistory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,18 @@ public class UserService implements UserDetailsService {
     private UserRepoistory userRepoistory;
 
 
-    public void creatUser(User user) {
+    public void creatUser(Customer user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         userRepoistory.save(user);
     }
 
-    public User findByEmail(String email) {
+    public Customer findByEmail(String email) {
         return userRepoistory.getUserByEmail(email);
     }
 
     public boolean isUserPresent(String email) {
-        User user = userRepoistory.getUserByEmail(email);
+        Customer user = userRepoistory.getUserByEmail(email);
         if (user != null) {
             return true;
         }
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepoistory.getUserByEmail(s);
+        Customer user = userRepoistory.getUserByEmail(s);
         UserDetail userDetails;
         if (user == null) {
             throw new UsernameNotFoundException("user not exits with this name");
