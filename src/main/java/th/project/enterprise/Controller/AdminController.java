@@ -37,8 +37,8 @@ public class AdminController {
     @Autowired
     EmailService emailService;
 
-    @GetMapping("/viewAddProductPage")
-    public String viewPageaddProductFromAdmin(Model model) {
+    @GetMapping("/viewAddDishPage")
+    public String viewPageAddDishFromAdmin(Model model) {
 
         model.addAttribute("p1", new Product());
 
