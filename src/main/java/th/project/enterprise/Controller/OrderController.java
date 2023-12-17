@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping("/CreatOrder")
     public String creatOrder(Principal principal, Model model) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -63,7 +63,7 @@ public class OrderController {
     @GetMapping("/BackToCart")
     public String deleteOrderInBearbeitung(Principal principal) {
 
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -76,7 +76,7 @@ public class OrderController {
 
     @GetMapping("/userSameAddress")
     public String userSameAddress(Principal principal, Model model) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         long orderid = orderService.getOrderIdInBearbeitung(user1.getId());
         Order order1 = orderService.getOrderByOrderId(orderid);
         if (user1.getAdress() == null) {
@@ -99,7 +99,7 @@ public class OrderController {
 
     @GetMapping("/viewConfirmedPage")
     public String viewConfirmedPage(Principal principal, Model model) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -125,7 +125,7 @@ public class OrderController {
         if (result.hasErrors()) {
             return "checkout";
         }
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -163,7 +163,7 @@ public class OrderController {
 
     @GetMapping("/confirmed")
     public String confirmed(Principal principal) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -187,7 +187,7 @@ public class OrderController {
             redirAttrs.addFlashAttribute("error", "The coupon code is not available ");
             return "redirect:/Order/viewConfirmedPage";
         } else {
-            User user1 = userService.findByEmail(principal.getName());
+            Customer user1 = userService.findByEmail(principal.getName());
             if (user1 == null) {
                 return "redirect:/User/logout";
             } else {
@@ -214,7 +214,7 @@ public class OrderController {
     @GetMapping("/cancelOrder")
     public String cancelOrder(Principal principal) {
 
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -227,7 +227,7 @@ public class OrderController {
 
     @GetMapping("/DeleteSingleOrderIteam")
     public String deleteSingleiteamFromOrderIteam(@Param("Pid") long Pid, Principal principal) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {

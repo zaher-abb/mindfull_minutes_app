@@ -1,8 +1,8 @@
 package th.project.enterprise.Controller;
 
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.FileUploader;
 import th.project.enterprise.Entity.Product;
-import th.project.enterprise.Entity.User;
 import th.project.enterprise.Service.EmailService;
 import th.project.enterprise.Service.ProductService;
 import th.project.enterprise.Service.UserService;
@@ -84,12 +84,12 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String viewAddUSerForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Customer());
         return "AdminAddUser";
     }
 
     @PostMapping("/addUser")
-    public String addUserByAdmin(@Valid User user, BindingResult result, Model model) {
+    public String addUserByAdmin(@Valid Customer user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "AdminAddUser";
         }
