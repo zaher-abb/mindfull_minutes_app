@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -56,5 +57,8 @@ public class UserService implements UserDetailsService {
         userRepoistory.updateUserAdreesID(adress, uid);
     }
 
+    public List<Customer> getAllCustomer() {
+        return userRepoistory.getAllCustomer("ADMIN");
+    }
 }
 

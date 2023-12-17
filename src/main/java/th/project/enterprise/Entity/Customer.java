@@ -8,12 +8,14 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "customer")
+@Table(name = "Customer")
 public class Customer extends User {
 
 
     public Customer() {
+
         super();
+        this.setRoles("USER");
     }
 
 }

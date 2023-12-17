@@ -48,13 +48,20 @@ public class AdminController {
     @GetMapping("/viewAdminPage")
     public String viewAdminPage(Model model) {
 
-
         List<Product> products = productService.getAllProduct();
 
         model.addAttribute("p1", products);
         return "AdminSeite";
     }
 
+    @GetMapping("/viewAllEmployee")
+    public String viewAllEmployee(Model model) {
+
+        List<Customer> customers = userService.getAllCustomer();
+
+        model.addAttribute("p1", customers);
+        return "Employees";
+    }
 
     @GetMapping("/update")
     public String viewUpdateForm(@Param("id") long id, Model model) {
