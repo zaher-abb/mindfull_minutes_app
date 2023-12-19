@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Table(name = "Customer")
 public class Customer extends User {
 
-
     public Customer() {
 
         super();

@@ -174,7 +174,7 @@ public class OrderController {
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
 
-            //  emailService.orderConfirmationEmail(user1, order1.getDeliveryDate());
+            emailService.orderConfirmationEmail(user1, order1.getDeliveryDate());
             return "redirect:/Product/Home";
         }
     }

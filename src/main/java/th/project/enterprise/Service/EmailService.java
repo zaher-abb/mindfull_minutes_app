@@ -1,5 +1,6 @@
 package th.project.enterprise.Service;
 
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -16,8 +17,8 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-/*
-    public void registrationConfirmationEmail(User user) throws MailException {
+
+    public void registrationConfirmationEmail(Customer user) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
@@ -29,9 +30,9 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
- */
-/*
-    public void userEmailToAdmin(User user, String text, String s) throws MailException {
+
+
+    public void userEmailToAdmin(Customer user, String text, String s) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo("zaher.abb12@gmail.com");
         mail.setFrom("zaher.abb12@gmail.com");
@@ -41,8 +42,8 @@ public class EmailService {
         javaMailSender.send(mail);
 
     }
-    */
-/*
+
+
     public void orderConfirmationEmail(User user, LocalDateTime DelevieryDate) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
@@ -53,6 +54,6 @@ public class EmailService {
         mail.setSubject("Order Confirmation ");
         javaMailSender.send(mail);
     }
-*/
+
 
 }

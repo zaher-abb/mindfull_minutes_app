@@ -1,29 +1,26 @@
 package th.project.enterprise.Entity;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.MappedSuperclass;
-
-
 
 @Setter
 @Getter
-@MappedSuperclass // Define User as a mapped superclass
+@MappedSuperclass
 public abstract class Employee extends User {
-
-    private String personnelNo;
-    private float salary;
-    private int vacationDays;
-    private float workingHours;
+    protected String personnelNo;
+    protected float salary;
+    protected int vacationDays;
+    protected float workingHours;
 
     public Employee() {
         super();
 
     }
 
-//    protected IService worksIn;
+    public Employee(String personnelNo, String lastName, String firstName) {
+        super(lastName,firstName);
+        this.personnelNo = personnelNo;
 
-
+    }
 }
 
