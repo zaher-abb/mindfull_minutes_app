@@ -1,5 +1,6 @@
 package th.project.enterprise.Controller;
 
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.User;
 import th.project.enterprise.Service.EmailService;
 import th.project.enterprise.Service.UserService;
@@ -30,11 +31,11 @@ public class ContactController {
 
     @GetMapping("/ContactAdmin")
     public String sendEmailToAdmin(@Param("Emailsubject") String Emailsubject, @Param("EmailText") String EmailText, Principal principal) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
-            //          emailService.userEmailToAdmin(user1, EmailText, Emailsubject);
+            emailService.userEmailToAdmin(user1, EmailText, Emailsubject);
             return "successSentEmail";
         }
     }

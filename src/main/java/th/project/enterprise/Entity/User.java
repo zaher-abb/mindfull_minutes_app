@@ -22,6 +22,8 @@ public abstract class User {
     private String firstName;
     private String lastName;
 
+    @Getter
+    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "adress_id")
     private Adress adress;
@@ -38,13 +40,9 @@ public abstract class User {
     @Column(nullable = false, unique = true)
     private String Email;
 
-
-    public void setAdress(Adress adress) {
-        this.adress = adress;
-    }
-
-    public Adress getAdress() {
-        return adress;
+    public User(String lastName, String firstName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     public String getFullname() {
