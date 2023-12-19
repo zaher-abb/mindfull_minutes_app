@@ -63,39 +63,42 @@
 
 <div class="card">
     <div class="card-header">
-        <p class="h4 mb-2 text-center">Add Product</p>
+        <p class="h4 mb-2 text-center">Add Dish</p>
     </div>
     <a  class="btn btn-outline-dark" th:href="@{/Admin/viewAdminPage}">&#x2190; View Admin Page</a>
     <div class="card-body">
         <form class="text-center border border-light p-5" th:action="@{/Admin/AddProduct}"
               th:object="${p1}" method="Post"   enctype="multipart/form-data">
 
-            <input type="number"  name="id" id="id" th:field="*{id}" hidden="hidden" >
+          <!--   <input type="number"  name="id" id="id" th:field="*{id}" hidden="hidden" >-->
             <input type="text" name="pname" id="name" th:field="*{name}" class="form-control mb-4"
-                   placeholder="Product Name">
+                   placeholder="Dish Name">
 
             <input type="text" name="price" id="price" th:field="*{price}"  class="form-control mb-4"
-                   placeholder="Product Price">
+                   placeholder="Dish Price">
 
-            <label for="categorie">Choose a categorie:</label>
+
+
+            <label for="categorie">Categorie:</label>
             <select name="categorie" id="categorie" class="form-control mb-4" th:field="*{categorie}">
-                <option value="Laptops">Laptops</option>
-                <option value="Mobile">Mobile</option>
+                <option value="Vorspeise">Vorspeise</option>
+                <option value="Hauptgericht">Hauptgericht</option>
+                <option value="Getränke">Getränke</option>
             </select>
 
             <textarea class="form-control mb-4" id="desc" th:field="*{shortDescreption}"  name="desc"
-                      placeholder="Product Description">Product Description
+                      placeholder="Dish Description">Dish Description
                                  </textarea>
 
             <textarea class="form-control mb-4" id="longDesc" th:field="*{longDescreption}"  name="longDesc"
-                      placeholder="Product Description">Product Details
+                      placeholder="Dish Details">Dish Details
                                  </textarea>
 
 
             <div class="custom-file mb-4">
                 <input type="file" name="image" accept="image/png, image/jpeg" class="custom-file-input"
                        id="customFile" required >
-                <label class="custom-file-label" for="customFile">Product Image</label>
+                <label class="custom-file-label" for="customFile">Dish Image</label>
             </div>
             <button class="btn btn-info btn-block" type="submit">add</button>
         </form>

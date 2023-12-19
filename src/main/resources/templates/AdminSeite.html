@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Ecom</title>
+    <title>Pizza Pronto</title>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -22,10 +22,10 @@
         <ul class="nav justify-content-center">
 
          <li class="nav-item">
-                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">All Product</a>
+                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">All Dishes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" th:href="@{/Admin/viewAddProductPage}">Add Product</a>
+                <a class="nav-link active" th:href="@{/Admin/viewAddProductPage}">Add Dish</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" th:href="@{/Admin/addUser}">Add User</a>
@@ -33,7 +33,7 @@
 
 
             <li  class="nav-item" sec:authorize="isAuthenticated()">
-                Welcome Admin , <a class="nav-link" sec:authentication="principal.firstname"> </a>
+                Welcome <a class="nav-link" sec:authentication="principal.firstname"> </a>
             </li>
 
 
@@ -49,6 +49,7 @@
             <li sec:authorize="!isAuthenticated()" class="nav-item">
                 <a class="btn btn-outline-light" th:href="@{/User/login}">Login</a>
             </li>
+
             <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
                 <input class="btn btn-outline-light"  type="submit" value="Sign Out"/>
             </form>
@@ -61,16 +62,16 @@
 
 
 <center>
-<a  class="btn btn-outline-dark" th:href="@{/Admin/viewAddProductPage}">&#x2190; Add Iteam</a>
+<!--<a  class="btn btn-outline-dark" th:href="@{/Admin/viewAddProductPage}">&#x2190; Add Dish</a>-->
 
     <div class="alert alert-info" th:if="${success}" style="color: #d58512 ;" >
         <p class="text text-center">
             Adding User is success!!
         </p>
-
-
-
 </center>
+
+
+
 <!-- Proudacts-->
 <div class="container">
     <br>
