@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
-<body>
+<body sec:authorize="isAuthenticated()">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">PizzaPronto</a>
@@ -81,6 +81,13 @@
                     <a th:href="@{/Menu/update(id=${products.id})}" class="btn btn-outline-secondary add-btn">Update</a>
                     <!-- View -->
                     <a class="btn btn-outline-success" th:href="@{/Menu/delete(id=${products.id})}">delete</a>
+
+
+                    <li>Ingredients: <span th:each="ingredient : ${products.getIngredients()}">
+
+                        <span th:text="${ingredient.name}"> </span>,
+                    </span>
+                    </li>
                     <li>Descreption: <span th:utext="${products.shortDescreption}"></span></li>
                 </div>
             </div>
@@ -90,7 +97,7 @@
 
 </div>
 
-<div style="background-color: #353c4e">
+    <div style="background-color: #353c4e" sec:authorize="isAuthenticated()">
     <a class="nav-link active" th:href="@{/Menu/viewAddProductPage}">Add Dish</a>
 
 </div>

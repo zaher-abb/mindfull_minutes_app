@@ -72,7 +72,7 @@ public class AdminController {
         
 
         FileUploader.saveFile(uploadDir, fileName, image);
-        productService.addProduct(p);
+//        productService.addProduct(p, ingredientIds);
         return "redirect:/Admin/viewAdminPage";
     }
 

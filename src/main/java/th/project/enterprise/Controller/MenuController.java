@@ -5,10 +5,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import th.project.enterprise.Entity.FileUploader;
 import th.project.enterprise.Entity.Ingredient;
 import th.project.enterprise.Entity.Product;
@@ -125,7 +124,7 @@ public class MenuController {
     }
     
     @PostMapping("/AddProduct")
-    public String uploadFile(@Param("image") MultipartFile image, Product p) throws IOException {
+    public String uploadFile(@Param("image") MultipartFile image,@RequestParam List<Long> ingredientIds, Product p) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
         p.setPictureUrl("/images/" + fileName);
         String uploadDir = "C:\\Users\\zzermani\\OneDrive - Technische Hochschule Brandenburg\\Desktop\\WinterSemester 2023-24\\SAQS\\Projekt\\Projekt-final-19.12.2023\\Online-Shop-Spring-Boot\\src\\main\\resources\\static\\images";
@@ -133,19 +132,58 @@ public class MenuController {
         
         
         FileUploader.saveFile(uploadDir, fileName, image);
-        productService.addProduct(p);
-        return "redirect:/Menu/all";
+        productService.addProduct(p,ingredientIds);
+//        productService.addIngredientToProduct(p.getId(),ingredientIds);
+  
+      return "redirect:/Menu/all";
     }
   
   @PostMapping("/updateProduct")
   public String updateProduct(@Param("image") MultipartFile image,@Param("id") long id,@Param("price") long price, Product p) throws IOException {
-    String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-    p.setPictureUrl("/images/" + fileName);
-    String uploadDir = "C:\\Users\\zzermani\\OneDrive - Technische Hochschule Brandenburg\\Desktop\\WinterSemester 2023-24\\SAQS\\Projekt\\Projekt-final-19.12.2023\\Online-Shop-Spring-Boot\\src\\main\\resources\\static\\images";
+     Product pr = productService.getSingelProductById(id);
+    p.setPictureUrl(pr.getPictureUrl());
+    p.setIngredients(pr.getIngredients());
+    
+    if( !image.isEmpty() ){
+       String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+       p.setPictureUrl("/images/" + fileName);
+       String uploadDir = "C:\\Users\\zzermani\\OneDrive - Technische Hochschule Brandenburg\\Desktop\\WinterSemester 2023-24\\SAQS\\Projekt\\Projekt-final-19.12.2023\\Online-Shop-Spring-Boot\\src\\main\\resources\\static\\images";
+       FileUploader.saveFile(uploadDir, fileName, image);
+  
+     }
     p.setId(id);
     p.setPrice(price);
-    FileUploader.saveFile(uploadDir, fileName, image);
     productService.updateProduct(p);
+    return "redirect:/Menu/all";
+  }
+  
+  
+  @PostMapping("/{productId}/addIngredient")
+  public String addIngredientToProduct(@PathVariable Long productId, @RequestParam List<Long> ingredientIds, Model model) {
+  
+    Product product = productService.getSingelProductById(productId);
+    List<Ingredient> ingredients = ingredientService.getAllIngredient();
+  
+    model.addAttribute("p1", product);
+    model.addAttribute("allIngredients",ingredients);
+    
+    productService.addIngredientToProduct(productId, ingredientIds);
+    model.addAttribute("id",productId);
+    
+//    return "redirect:/Menu/update?id="+productId;
+    return "redirect:/Menu/all";
+  }
+  @PostMapping("/{productId}/removeIngredient")
+  public String removeIngredientFromProduct(@PathVariable Long productId, @RequestParam List<Long> ingredientIds, Model model) {
+  
+    Product product = productService.getSingelProductById(productId);
+    List<Ingredient> ingredients = ingredientService.getAllIngredient();
+  
+    model.addAttribute("p1", product);
+    model.addAttribute("allIngredients",ingredients);
+   
+    productService.removeIngredientFromProduct(productId, ingredientIds);
+    model.addAttribute("id",productId);
     return "redirect:/Menu/all";
   }
     

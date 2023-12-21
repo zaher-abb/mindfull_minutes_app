@@ -30,8 +30,8 @@ public class Product {
     
     
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "product_ingreient_table",
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "product_ingredient_table",
       joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")
       },
