@@ -5,6 +5,7 @@ import th.project.enterprise.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +16,7 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
-
+    
     public List<Product> getAllProduct() {
         return (List<Product>) productRepository.findAll();
     }
@@ -61,11 +61,19 @@ public class ProductService {
 
         productRepository.save(p1);
     }
-
-
+    
+   
+    
+    
+    
     public void deleteProductById(long pid) {
         productRepository.deleteById(pid);
     }
-
-
+    
+    @Transactional
+    public void updateProduct(Product p) {
+    
+        productRepository.save(p);
+        
+    }
 }

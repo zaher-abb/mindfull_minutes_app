@@ -49,7 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/User/logout")
-                .logoutSuccessUrl("/Product/Home")
+                .logoutSuccessUrl("/Home")
                 .permitAll();
     }
 

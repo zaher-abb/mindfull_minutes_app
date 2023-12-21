@@ -1,8 +1,11 @@
 package th.project.enterprise.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +27,21 @@ public class Product {
     private String categorie;
     private String shortDescreption;
     private String longDescreption;
+    
+    
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "product_ingreient_table",
+      joinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "id")
+      },
+      inverseJoinColumns = {
+        @JoinColumn(name = "ingredient_id", referencedColumnName = "id")
+      }
+    )
+    @JsonManagedReference
+     private Set<Ingredient> ingredients;
+
 
 
 }
