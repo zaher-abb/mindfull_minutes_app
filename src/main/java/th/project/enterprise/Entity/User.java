@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collections;
+import java.util.Set;
 
 @Builder
 @Entity
@@ -23,7 +25,8 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "adress_id")
     private Adress adress;
-
+    
+   
     private String roles;
 
     @NotNull

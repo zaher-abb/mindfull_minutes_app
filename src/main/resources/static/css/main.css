@@ -1,7 +1,57 @@
 h1,h2,h3,h4,h5,h6{
     color:hsl(0, 0%, 30%);
 }
+body {
+    padding-top: 70px; /* Adjust the body padding to account for the fixed navbar */
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% der Viewport-Höhe */
 
+}
+
+#homebody{
+    padding-top: 70px; /* Adjust the body padding to account for the fixed navbar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% der Viewport-Höhe */
+
+    margin: 0; /* Entfernt den Standardmargenabstand des Body-Elements */
+    background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Hintergrund abdeckt */
+    background-position: center center; /* Das Bild wird zentriert positioniert */
+}
+#div-over-body{
+
+    padding-top: 0px; /* Adjust the body padding to account for the fixed navbar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% der Viewport-Höhe */
+    min-width: 60vh;
+    background-color: #000000;
+    margin: 0; /* Entfernt den Standardmargenabstand des Body-Elements */
+    background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Hintergrund abdeckt */
+    background-position: center center; /* Das Bild wird zentriert positioniert */
+    background-image: url('../images/pronto.png'); /* Pfad zum Hintergrundbild */
+
+}
+header, section {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+footer {
+    margin-top: auto; /* den Footer nach unten schieben */
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f8f8f8; /* Hintergrundfarbe des Footers */
+}
+header, section {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 .box-element{
     box-shadow:hsl(0, 0%, 80%) 0 0 16px;
     background-color: #fff;
@@ -76,7 +126,7 @@ h1,h2,h3,h4,h5,h6{
 
 
 .btn{
-    border-radius: 0;
+    border-radius: 6px;
 }
 
 .row-image{
@@ -134,16 +184,16 @@ input[type=text], select, textarea {
 }
 
 input[type=submit] {
-    background-color: #4CAF50;
+    background-color: #88AB8E;
     color: white;
-    padding: 12px 20px;
+    padding: 6px 6px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #88AB8E;
 }
 
 .container {

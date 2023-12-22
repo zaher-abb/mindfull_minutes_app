@@ -13,39 +13,6 @@
 </head>
 <body>
 
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">-->
-<!--    <a class="navbar-brand" href="#">PizzaPronto</a>-->
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
-<!--        <ul class="navbar-nav ml-auto">-->
-
-
-<!--            <li class="nav-item active">-->
-<!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">All Dishes</a>-->
-
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link active" th:href="@{/Admin/viewAddProductPage}">Add Dish</a>            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link active" th:href="@{/Admin/addUser}">Add User</a>-->
-<!--            </li>-->
-
-<!--            <li class="nav-item">  </li>-->
-<!--            <li class="nav-item">  </li>-->
-
-<!--            <li class="nav-item">-->
-<!--                <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">-->
-<!--                    <input class="btn btn-outline-light"  type="submit" value="Sign Out"/>-->
-<!--                </form>-->
-<!--            </li>-->
-
-
-
-<!--        </ul>-->
-<!--    </div>-->
-<!--</nav>-->
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -93,10 +60,37 @@
 
 <div class="card">
     <div class="card-header">
-        <p class="h4 mb-2 text-center">Add Dish</p>
+        <p class="h4 mb-2 text-center">Update Dish</p>
     </div>
     <div class="card-body">
-        <form class="text-center border border-light p-5" th:action="@{/Menu/AddProduct}"
+
+        <!-- Display selected ingredients -->
+        <div  class="container" sec:authorize="hasAnyRole('CHEF', 'ADMIN')">
+
+            <div >
+
+                <form th:action="@{/Menu/{productId}/removeIngredient(productId=${p1.id})}"  th:object="${p1}"  method="post">
+                    <div th:each="ingredient : ${p1.ingredients}">
+                        <input type="checkbox" th:value="${ingredient.id}" th:name="ingredientIds"/>
+                        <label th:text="${ingredient.name}"></label><br/>
+                    </div>
+                    <button type="submit">Remove Ingredients</button>
+                </form>
+            </div>
+
+            <div >
+                <!-- Display all ingredients with checkboxes -->
+                <form th:action="@{/Menu/{productId}/addIngredient(productId=${p1.id})}"  th:object="${p1}" method="post">
+                    <div th:each="ingredient : ${allIngredients}">
+                        <input type="checkbox" th:checked="${p1.ingredients.contains(ingredient)}" th:value="${ingredient.id}" th:name="ingredientIds"/>
+                        <label th:text="${ingredient.name}"></label><br/>
+                    </div>
+                    <button type="submit">Add Ingredients</button>
+                </form>
+            </div>
+
+        </div>
+        <form class="text-center border border-light p-5" th:action="@{/Menu/updateProduct(id=${p1.id},image=${p1.pictureUrl})}"
               th:object="${p1}" method="Post"   enctype="multipart/form-data">
 
           <!--   <input type="number"  name="id" id="id" th:field="*{id}" hidden="hidden" >-->
@@ -123,20 +117,14 @@
                       placeholder="Dish Details">Dish Details
                                  </textarea>
 
-            <div >
-                <!-- Display all ingredients with checkboxes -->
-                    <div th:each="ingredient : ${allIngredients}">
-                        <input type="checkbox"  th:value="${ingredient.id}" th:name="ingredientIds"/>
-                        <label th:text="${ingredient.name}"></label><br/>
-                    </div>
-            </div>
 
+<br><br><br><br>
             <div class="custom-file mb-4">
                 <input type="file" name="image" accept="image/png, image/jpeg" class="custom-file-input"
-                       id="customFile" required >
+                       id="customFile"  >
                 <label class="custom-file-label" for="customFile">Dish Image</label>
             </div>
-            <button class="btn btn-info btn-block" type="submit">add</button>
+            <button class="btn btn-info btn-block" type="submit">update</button>
         </form>
     </div>
 </div>
