@@ -65,14 +65,22 @@ public class UserController {
         return "login";
     }
 
+//    @GetMapping("/default")
+//    public String defaultAfterLogin(HttpServletRequest request) {
+//        if (request.isUserInRole("ROLE_ADMIN")) {
+//            return "redirect:/Admin/viewAdminPage";
+//        }
+//        return "redirect:/Product/Home";
+//    }
+    
     @GetMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ROLE_ADMIN")) {
-            return "redirect:/Admin/viewAdminPage";
+            return "redirect:/Home";
         }
-        return "redirect:/Product/Home";
+        return "redirect:/Home";
     }
-
+    
     @GetMapping("/login")
     public String login() {
         return "login";
