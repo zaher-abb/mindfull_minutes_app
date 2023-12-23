@@ -113,7 +113,11 @@ public class OrderService {
     public void updateTotalAmounte(long total, long oid) {
         orderRepository.updateTotalAmounte(total, oid);
     }
-
+  
+  public List<Order> getAllOrdersbyUserId(long idUser) {
+        
+        return orderRepository.findByUserId(idUser);
+  }
 }
 
 

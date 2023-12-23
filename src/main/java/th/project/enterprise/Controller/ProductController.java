@@ -40,16 +40,22 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/laptops")
-    public String Laptops(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("laptops");
+    @GetMapping("/pizza")
+    public String pizza(Model model) {
+        List<Product> products = productService.getAllProductWithCategorie("pizza");
         model.addAttribute("p1", products);
         return "main";
     }
 
-    @GetMapping("/mobile")
-    public String sport(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("mobile");
+    @GetMapping("/pasta")
+    public String pasta(Model model) {
+        List<Product> products = productService.getAllProductWithCategorie("pasta");
+        model.addAttribute("p1", products);
+        return "main";
+    }
+    @GetMapping("/dessert")
+    public String Dessert(Model model) {
+        List<Product> products = productService.getAllProductWithCategorie("pasta");
         model.addAttribute("p1", products);
         return "main";
     }
