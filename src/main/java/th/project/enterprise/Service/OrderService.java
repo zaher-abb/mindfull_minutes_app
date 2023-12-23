@@ -30,7 +30,7 @@ public class OrderService {
     @Autowired
     VoucherRepository voucherRepository;
 
-    public void creatOrder(User user, long totalAmount) {
+    public void creatOrder(Customer user, long totalAmount) {
 
         LocalDateTime Date = LocalDateTime.now();
         Order order1 = new Order(Date, user, totalAmount);

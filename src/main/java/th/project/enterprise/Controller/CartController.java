@@ -1,7 +1,7 @@
 package th.project.enterprise.Controller;
 
 import th.project.enterprise.Entity.Cart;
-import th.project.enterprise.Entity.User;
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Service.CartService;
 import th.project.enterprise.Service.OrderIteamService;
 import th.project.enterprise.Service.ProductService;
@@ -37,7 +37,7 @@ public class CartController {
     @GetMapping("/addToCart")
     public String addToCart(@Param("id") long id, Principal principal, Model model) {
 
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -55,14 +55,14 @@ public class CartController {
 
     @GetMapping("/viewCart")
     public String viewCart(Model model, Principal principal) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
             long userid = user1.getId();
             List<Cart> carts = cartService.getAllCartIteams(userid);
 
-            if (carts.size() == 0) {
+            if (carts.isEmpty()) {
                 return "redirect:/Product/Home";
             } else {
                 model.addAttribute("carts", carts);
@@ -74,7 +74,7 @@ public class CartController {
 
     @GetMapping("/DeleteSingleIteam")
     public String deleteSingleiteamFromCart(@Param("Pid") long Pid, Principal principal) {
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
 
         if (user1 == null) {
             return "redirect:/User/logout";

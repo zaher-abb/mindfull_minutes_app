@@ -26,7 +26,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Customer user;
 
     private long totalAmount;
 
@@ -34,7 +34,7 @@ public class Order {
     @JoinColumn(name = "adress_id")
     private Adress adress;
 
-    public Order(LocalDateTime creatDate, User user, long totalAmount) {
+    public Order(LocalDateTime creatDate, Customer user, long totalAmount) {
         this.creatDate = creatDate;
         this.user = user;
         deliveryDate = this.creatDate.plusDays(7);
@@ -43,7 +43,7 @@ public class Order {
 
     }
 
-    public Order(LocalDateTime creatDate, User user, Adress adress) {
+    public Order(LocalDateTime creatDate, Customer user, Adress adress) {
         this.creatDate = creatDate;
         this.user = user;
         this.adress = adress;

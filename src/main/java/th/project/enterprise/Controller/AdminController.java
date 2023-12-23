@@ -1,8 +1,8 @@
 package th.project.enterprise.Controller;
 
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.FileUploader;
 import th.project.enterprise.Entity.Product;
-import th.project.enterprise.Entity.User;
 import th.project.enterprise.Service.EmailService;
 import th.project.enterprise.Service.ProductService;
 import th.project.enterprise.Service.UserService;
@@ -37,8 +37,8 @@ public class AdminController {
     @Autowired
     EmailService emailService;
 
-    @GetMapping("/viewAddProductPage")
-    public String viewPageaddProductFromAdmin(Model model) {
+    @GetMapping("/viewAddDishPage")
+    public String viewPageAddDishFromAdmin(Model model) {
 
         model.addAttribute("p1", new Product());
 
@@ -48,13 +48,20 @@ public class AdminController {
     @GetMapping("/viewAdminPage")
     public String viewAdminPage(Model model) {
 
-
         List<Product> products = productService.getAllProduct();
 
         model.addAttribute("p1", products);
         return "AdminSeite";
     }
 
+    @GetMapping("/viewAllEmployee")
+    public String viewAllEmployee(Model model) {
+
+        List<Customer> customers = userService.getAllCustomer();
+
+        model.addAttribute("p1", customers);
+        return "Employees";
+    }
 
     @GetMapping("/update")
     public String viewUpdateForm(@Param("id") long id, Model model) {
@@ -67,7 +74,7 @@ public class AdminController {
     public String uploadFile(@Param("image") MultipartFile image, Product p) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
         p.setPictureUrl("/images/" + fileName);
-        String uploadDir = "C:\\Users\\zzermani\\OneDrive - Technische Hochschule Brandenburg\\Desktop\\WinterSemester 2023-24\\SAQS\\Projekt\\Projekt-final-19.12.2023\\Online-Shop-Spring-Boot\\src\\main\\resources\\static\\images";
+        String uploadDir = "C:\\Users\\zaher\\IntelliJ_EE_Projecte\\enterprise\\src\\main\\resources\\static\\images";
        
         
 
@@ -86,12 +93,12 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String viewAddUSerForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Customer());
         return "AdminAddUser";
     }
 
     @PostMapping("/addUser")
-    public String addUserByAdmin(@Valid User user, BindingResult result, Model model) {
+    public String addUserByAdmin(@Valid Customer user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "AdminAddUser";
         }

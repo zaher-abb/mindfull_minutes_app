@@ -11,20 +11,20 @@ import java.util.List;
 public class UserDetail implements UserDetails {
 
 
-    private User user;
+    private Customer user;
 
 
-    public UserDetail(User user) {
+    public UserDetail(Customer user) {
         super();
         this.user = user;
 
     }
 
-    public User getUser() {
+    public Customer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Customer user) {
         this.user = user;
     }
 

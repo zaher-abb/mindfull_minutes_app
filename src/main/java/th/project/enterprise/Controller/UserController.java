@@ -1,5 +1,6 @@
 package th.project.enterprise.Controller;
 
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.User;
 import th.project.enterprise.Entity.Adress;
 import th.project.enterprise.Repository.AdressRepository;
@@ -40,12 +41,12 @@ public class UserController {
 
     @GetMapping("/register")
     public String viewRgisterPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Customer());
         return "register";
     }
 
     @PostMapping("/register")
-    public String Register(@Valid User user, BindingResult result, Model model) {
+    public String Register(@Valid Customer user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "register";
         }
@@ -56,7 +57,7 @@ public class UserController {
         userService.creatUser(user);
         model.addAttribute("success", true);
         try {
-            //       emailService.registrationConfirmationEmail(user);
+          emailService.registrationConfirmationEmail(user);
         } catch (MailException ignored) {
 
 
@@ -64,22 +65,22 @@ public class UserController {
         return "login";
     }
 
-//    @GetMapping("/default")
-//    public String defaultAfterLogin(HttpServletRequest request) {
-//        if (request.isUserInRole("ROLE_ADMIN")) {
-//            return "redirect:/Admin/viewAdminPage";
-//        }
-//        return "redirect:/Product/Home";
-//    }
-    
     @GetMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/Home";
         }
-        return "redirect:/Home";
+        return "redirect:/Product/Home";
     }
     
+//    @GetMapping("/default")
+//    public String defaultAfterLogin(HttpServletRequest request) {
+//        if (request.isUserInRole("ROLE_ADMIN")) {
+//            return "redirect:/Home";
+//        }
+//        return "redirect:/Home";
+//    }
+//
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -93,7 +94,7 @@ public class UserController {
     @GetMapping("/showUserProfile")
     public String showUserProfile(Principal principal, Model model) {
 
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -119,7 +120,7 @@ public class UserController {
 
     @GetMapping("/showUpdateProfileForm")
     public String showUpdateProfileForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Customer());
         return "update";
     }
 
@@ -133,7 +134,7 @@ public class UserController {
             model.addAttribute("exist", true);
             return "update";
         }
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
@@ -162,7 +163,7 @@ public class UserController {
             return "updateAdresse";
         }
 
-        User user1 = userService.findByEmail(principal.getName());
+        Customer user1 = userService.findByEmail(principal.getName());
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
