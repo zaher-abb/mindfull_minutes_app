@@ -17,16 +17,16 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query("delete from Order o where o.status = 'in Bearbeitung' and o.user.id=:uid ")
     void deleteOrderTransaktionByUserId(long uid);
 
-    @Query("select o.orderId from Order o  WHERE o.user.id=:uid and o.status='in Bearbeitung' ")
+    @Query("select o.orderId from Order o  WHERE o.user.id=:uid and o.status='STARTED' ")
     long getOrderIdInBearbeitung(long uid);
 
-    @Query("select o from Order o  WHERE o.user.id=:uid and o.status = 'opend'")
-    Order getOrderOpend(long uid);
+    @Query("select o from Order o  WHERE o.user.id=:uid")
+    Order getOrder(long uid);
 
     @Query("select count (o) from  Order o where o.status = 'in Bearbeitung' and o.user.id=:uid")
     int checkIfUserhasOrderInBearbeitung(long uid);
 
-    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='in Bearbeitung' ")
+    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='STARTED' ")
     List<Order> getAllOrderInBearbeitung(long uid);
 
     @Modifying

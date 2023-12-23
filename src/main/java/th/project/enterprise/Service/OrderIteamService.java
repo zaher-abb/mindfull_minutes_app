@@ -32,14 +32,14 @@ public class OrderIteamService {
 
     public void creatOrderIteams(long uid) {
 
-        Order order1 = orderRepository.getOrderOpend(uid);
+        Order order1 = orderRepository.getOrder(uid);
         List<Cart> allCartIteams = cartService.getAllCartIteams(uid);
         for (Cart c : allCartIteams) {
             OrderIteam order_itemas1 = new OrderIteam(order1, c.getProduct(), c.getUserID(), c.getQuantity(), c.getTotalAmountSingleCartIteam());
 
             orderIteamRepository.save(order_itemas1);
         }
-        order1.setStatus("in Bearbeitung");
+//        order1.setStatus("in Bearbeitung");
     }
 
 
