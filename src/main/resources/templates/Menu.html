@@ -30,6 +30,13 @@
             <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
                 <a class="nav-link active">process Order</a>
             </li>
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
+                <a class="nav-link active"  >manage staff</a>
+
+            </li>
+            <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+                <a class="nav-link active">manage customer</a>
+            </li>
 
             <li class="nav-item mr-5">
                 <form   th:action="@{/Product/search }  "

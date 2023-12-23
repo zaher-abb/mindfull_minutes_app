@@ -11,13 +11,18 @@
 
         <link rel="stylesheet" type="text/css" href="/css/main.css">
      </head>
-     <body>
 
-      <nav class="navbar navbar-expand-lg navbar-custom justify-content-center">
+
+
+
+     <body style=" padding-top: 0px;">
+
+     <!-- JavaScript to show the toast on button click -->
+     <nav class="navbar navbar-expand-lg navbar-custom justify-content-center">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+          <a class="navbar-brand" th:href="@{/Product/Home}">Pizza Pronto</a>
   <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
     <ul class="nav justify-content-center">
 
@@ -28,8 +33,9 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
                 <div class="dropdown-menu">
-                    <a th:href="@{/Product/laptops}"  class="dropdown-item" >Laptops</a>
-                    <a th:href="@{/Product/mobile}" class="dropdown-item">mobile</a>
+                    <a th:href="@{/Product/pasta}"  class="dropdown-item">Pasta</a>
+                    <a th:href="@{/Product/pizza}" class="dropdown-item">Pizza</a>
+                    <a th:href="@{/Product/dessert}" class="dropdown-item">Dessert</a>
                 </div>
             </div>
         </li>
@@ -41,15 +47,21 @@
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/Cart/viewCart}">CART</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/Order/userorders} ">MY ORDERS</a>
+        </li>
+
+
+
         <li class="nav-item">
             <a class="nav-link" th:href="@{/Contact/ContactUs} ">CONTACT US</a>
         </li>
 
-
-        <li class="nav-item" sec:authorize="isAuthenticated()">
-            Welcome,
-            <a class="nav-link" th:href="@{/User/showUserProfile}" sec:authentication="principal.firstname"> </a>
-        </li>
+<!--        <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--            Welcome,-->
+<!--            <a class="nav-link" th:href="@{/User/showUserProfile}" sec:authentication="principal.firstname"> </a>-->
+<!--        </li>-->
 
 
 
@@ -57,11 +69,11 @@
         <form   th:action="@{/Product/search }  "
               method="GET"  class="form-inline">
             <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit ">Search </button>
+            <button class="btn btn-outline-success my-2 my-sm-0 mr-5" type="submit ">Search </button>
         </form>
         </li>
 
-        <li sec:authorize="!isAuthenticated()" class="nav-item">
+        <li sec:authorize="!isAuthenticated()" class="nav-item mr-5">
             <a class="btn btn-outline-light" th:href="@{/User/login}">Login</a>
         </li>
         <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
@@ -87,7 +99,7 @@
       <div>
               <div class="container">
                   <div class="dropdown">
-                      <button class="btn btn-primary dropdown-toggle" type="button"data-toggle="dropdown">sort By
+                      <button class="btn btn-dark dropdown-toggle" type="button"data-toggle="dropdown">sort By
                           <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                           <li><a th:href="@{/Product/orderByPriceAsc}">Price: Low to High </a></li>
@@ -96,7 +108,16 @@
                   </div>
               </div>
       </div>
+     <!-- Toast container -->
+     <div id="toast-container" class="position-fixed top-0 end-0 p-3">
+         <!-- Toast message -->
+         <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 
+             <div class="toast-body">
+                 one Dish added to the Card !
+             </div>
+         </div>
+     </div>
 
 
       <!-- Products-->
@@ -114,7 +135,11 @@
                     Price :<span th:text="${products.price}"> $ </span>
                 </li>
                 <!-- Add to Card -->
-				<a th:href="@{/Cart/addToCart(id=${products.id})}" class="btn btn-outline-secondary add-btn">Add to Cart</a>
+
+                    <a  name="showToastLink" th:href="@{/Cart/addToCart(id=${products.id})}" class="btn btn-outline-secondary add-btn">Add to Cart</a>
+
+
+
                 <!-- View -->
 				<a class="btn btn-outline-success" th:href="@{/Product/view(Pid=${products.id})}">View</a>
                 <li>Descreption: <span th:utext="${products.shortDescreption}"></span></li>
@@ -126,10 +151,32 @@
 
          </div>
 
+
+
 <!-- JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+     <!-- JavaScript to show the toast on link click -->
+     <script>
+         var links = document.getElementsByName('showToastLink');
 
+         links.forEach(function(link) {
+             link.addEventListener('click', function (event) {
+                 // event.preventDefault(); // Prevent the default link behavior (e.g., navigation)
+                 var toast = document.getElementById('toast');
+                 toast.classList.add('show');
+
+                 // Hide the toast after 3000 milliseconds (3 seconds)
+                 setTimeout(function() {
+                     toast.classList.remove('show');
+                 }, 3000);
+             });
+         });
+     </script>
+     <!-- Footer -->
+     <footer style="background-color: black; color: #737272">
+         <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
+     </footer>
      </body>
 </html>

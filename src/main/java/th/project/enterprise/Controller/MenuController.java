@@ -61,16 +61,16 @@ public class MenuController {
         }
     }
 
-    @GetMapping("/laptops")
+    @GetMapping("/pizza")
     public String Laptops(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("laptops");
+        List<Product> products = productService.getAllProductWithCategorie("pizza");
         model.addAttribute("p1", products);
         return "main";
     }
 
-    @GetMapping("/mobile")
+    @GetMapping("/pasta")
     public String sport(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("mobile");
+        List<Product> products = productService.getAllProductWithCategorie("pasta");
         model.addAttribute("p1", products);
         return "main";
     }

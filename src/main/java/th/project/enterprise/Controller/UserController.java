@@ -75,9 +75,9 @@ public class UserController {
     @GetMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ROLE_ADMIN")) {
-            return "redirect:/Home";
+         return "redirect:/Home";
         }
-        return "redirect:/Home";
+        return "redirect:/Product/Home";
     }
     
     @GetMapping("/login")

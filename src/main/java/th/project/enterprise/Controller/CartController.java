@@ -48,7 +48,7 @@ public class CartController {
 
             model.addAttribute("q", quantity);
 
-            return "redirect:/Cart/viewCart";
+            return "redirect:/Product/Home";
         }
     }
 
