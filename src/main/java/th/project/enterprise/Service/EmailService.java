@@ -44,7 +44,7 @@ public class EmailService {
     }
 
 
-    public void orderConfirmationEmail(User user, LocalDateTime DelevieryDate) throws MailException {
+    /*public void orderConfirmationEmail(User user, LocalDateTime DelevieryDate) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
         mail.setFrom("zaher.abb12@gmail.com");
@@ -53,7 +53,7 @@ public class EmailService {
         mail.setText(text);
         mail.setSubject("Order Confirmation ");
         javaMailSender.send(mail);
-    }
+    }*/
 
 
 }

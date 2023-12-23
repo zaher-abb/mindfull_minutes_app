@@ -22,7 +22,8 @@ public class Order {
     private LocalDateTime creatDate;
     private LocalDateTime deliveryDate;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -38,7 +39,7 @@ public class Order {
         this.creatDate = creatDate;
         this.user = user;
         deliveryDate = this.creatDate.plusDays(7);
-        this.setStatus("opend");
+        this.setStatus(Status.STARTED);
         this.totalAmount = totalAmount;
 
     }

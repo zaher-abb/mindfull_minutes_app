@@ -44,12 +44,14 @@ public class OrderController {
             return "redirect:/User/logout";
         } else {
 
-            if (orderService.checkIfUserhasOrderInBearbeitung(user1.getId())) {
+            if (orderService.checkIfUserhasOrderStarted(user1.getId())) {
 
+                System.out.println("USER hast noch order Started ");
                 orderService.cancelledOrderStatus(user1.getId());
             }
+
             orderService.creatOrder(user1, orderService.getSumTotalPrice(user1.getId()));
-            Order order1 = orderService.getOrderOpend(user1.getId());
+            Order order1 = orderService.getOrder(user1.getId());
             orderIteamService.creatOrderIteams(user1.getId());
             List<OrderIteam> orderIteams = orderService.getAllOrderIteamsProduct(user1.getId(), order1.getOrderId());
             model.addAttribute("orderIteams", orderIteams);
@@ -170,11 +172,11 @@ public class OrderController {
             long orderId = orderService.getOrderIdInBearbeitung(user1.getId());
             Order order1 = orderService.getOrderByOrderId(orderId);
 
-            order1.setStatus("Finished");
+            order1.setStatus(Status.FINISHED);
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
 
-            emailService.orderConfirmationEmail(user1, order1.getDeliveryDate());
+            /*emailService.orderConfirmationEmail(user1, order1.getDeliveryDate());*/
             return "redirect:/Product/Home";
         }
     }

@@ -37,8 +37,8 @@ public class OrderService {
         orderRepository.save(order1);
     }
 
-    public Order getOrderOpend(long uid) {
-        return orderRepository.getOrderOpend(uid);
+    public Order getOrder(long uid) {
+        return orderRepository.getOrder(uid);
     }
 
     public long getOrderIdInBearbeitung(long uid) {
@@ -83,9 +83,9 @@ public class OrderService {
             return voucherRepository.getVoucherByOrderId(oid);
         }
     */
-    public boolean checkIfUserhasOrderInBearbeitung(long uid) {
+    public boolean checkIfUserhasOrderStarted(long uid) {
 
-        if (orderRepository.checkIfUserhasOrderInBearbeitung(uid) >= 1) {
+        if (orderRepository.checkIfUserhasOrderStarted(uid) >= 1) {
             return true;
         }
         return false;
@@ -93,12 +93,11 @@ public class OrderService {
 
 
     public void cancelledOrderStatus(long uid) {
-        List<Order> orderList = orderRepository.getAllOrderInBearbeitung(uid);
+        List<Order> orderList = orderRepository.getAllOrderStarted(uid);
         for (Order o : orderList) {
-            o.setStatus("cancelled");
+            /*o.setStatus("cancelled");*/
             orderIteamRepository.deleteAllOrderIteamWithCancelledStatus(o.getOrderId());
             orderRepository.delete(o);
-
         }
 
     }
