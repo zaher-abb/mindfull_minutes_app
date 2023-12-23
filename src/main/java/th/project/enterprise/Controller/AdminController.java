@@ -74,10 +74,11 @@ public class AdminController {
     public String uploadFile(@Param("image") MultipartFile image, Product p) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
         p.setPictureUrl("/images/" + fileName);
-        String uploadDir = "C:\\Users\\fifim\\Online-Shop-Spring-Boot\\src\\main\\resources\\static";
+
+        String uploadDir = "C:\\Users\\zaher\\IntelliJ_EE_Projecte\\enterprise\\src\\main\\resources\\static\\images";
 
         FileUploader.saveFile(uploadDir, fileName, image);
-        productService.addProduct(p);
+//        productService.addProduct(p, ingredientIds);
         return "redirect:/Admin/viewAdminPage";
     }
 
