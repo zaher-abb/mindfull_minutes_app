@@ -40,24 +40,20 @@ public class OrderController {
     @GetMapping("/CreatOrder")
     public String creatOrder(Principal principal, Model model) {
         Customer user1 = userService.findByEmail(principal.getName());
-        System.out.println("Ramiiii "+user1);
         if (user1 == null) {
             return "redirect:/User/logout";
         } else {
 
-            /*if (orderService.checkIfUserhasOrderInBearbeitung(user1.getId())) {
+            if (orderService.checkIfUserhasOrderStarted(user1.getId())) {
 
+                System.out.println("USER hast noch order Started ");
                 orderService.cancelledOrderStatus(user1.getId());
-            }*/
+            }
 
             orderService.creatOrder(user1, orderService.getSumTotalPrice(user1.getId()));
-            System.out.println("testttt 1 ");
             Order order1 = orderService.getOrder(user1.getId());
-            System.out.println("orderrrr 1 "+order1);
             orderIteamService.creatOrderIteams(user1.getId());
-            System.out.println("Rami 44444 //// "+order1);
             List<OrderIteam> orderIteams = orderService.getAllOrderIteamsProduct(user1.getId(), order1.getOrderId());
-            System.out.println("Rami 33333"+orderIteams );
             model.addAttribute("orderIteams", orderIteams);
             model.addAttribute("totalAmount", order1.getTotalAmount());
             model.addAttribute("adress", new Adress());
@@ -84,7 +80,6 @@ public class OrderController {
     public String userSameAddress(Principal principal, Model model) {
         Customer user1 = userService.findByEmail(principal.getName());
         long orderid = orderService.getOrderIdInBearbeitung(user1.getId());
-        System.out.println("order in bearbeitung "+orderid);
         Order order1 = orderService.getOrderByOrderId(orderid);
         if (user1.getAdress() == null) {
             orderIteamService.deleteAllOrderIteamsTransaktion(orderid);

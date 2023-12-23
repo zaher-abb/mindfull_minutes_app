@@ -20,14 +20,14 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query("select o.orderId from Order o  WHERE o.user.id=:uid and o.status='STARTED' ")
     long getOrderIdInBearbeitung(long uid);
 
-    @Query("select o from Order o  WHERE o.user.id=:uid")
+    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='STARTED'")
     Order getOrder(long uid);
 
-    @Query("select count (o) from  Order o where o.status = 'in Bearbeitung' and o.user.id=:uid")
-    int checkIfUserhasOrderInBearbeitung(long uid);
+    @Query("select count (o) from  Order o where o.status = 'STARTED' and o.user.id=:uid")
+    int checkIfUserhasOrderStarted(long uid);
 
     @Query("select o from Order o  WHERE o.user.id=:uid and o.status='STARTED' ")
-    List<Order> getAllOrderInBearbeitung(long uid);
+    List<Order> getAllOrderStarted(long uid);
 
     @Modifying
     @Query("update Order o set o.totalAmount=:total  WHERE o.orderId=:oid")
