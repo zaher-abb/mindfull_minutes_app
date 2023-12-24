@@ -1,9 +1,6 @@
 package th.project.enterprise.Repository;
 
-import th.project.enterprise.Entity.Adress;
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.Product;
-import th.project.enterprise.Entity.User;
+import th.project.enterprise.Entity.*;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +12,8 @@ public interface UserRepoistory extends CrudRepository<User, Long> {
 
     @Query("SELECT m from Customer m WHERE m.Email=:Email")
     Customer getUserByEmail(String Email);
+    @Query("SELECT m from Employee m WHERE m.Email=:Email")
+    Employee getEmpByEmail(String Email);
 
     @Query("SELECT m FROM Customer m WHERE m.roles not LIKE %:role%")
     List<Customer> getAllCustomer(String role);
@@ -23,7 +22,12 @@ public interface UserRepoistory extends CrudRepository<User, Long> {
     void updateUserAdreesID(Adress adress, long uid);
     
     @Query("SELECT m FROM Employee m ")
-    List<Employee> getAllEmployees();
-//    @Query("SELECT m FROM Customer m WHERE m.roles not LIKE %:role%")
+     List<Employee> getAllEmployees();
+    
+    
+    @Modifying
+    @Query("delete Employee u  where u.id=:id")
+    void deleteEmployeeById(long id);
+    //    @Query("SELECT m FROM Customer m WHERE m.roles not LIKE %:role%")
 //    List<Customer> getAllCustomer(String role);
 }

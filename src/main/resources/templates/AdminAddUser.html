@@ -135,28 +135,28 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text"  th:field="*{firstName}" name="firstname">
+                        <input type="text"  th:field="*{firstName}" name="firstname" required>
                         <div class="ext text-danger"  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></div>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" name="lastname" th:field="*{lastName}">
+                        <input type="text" name="lastname" th:field="*{lastName}" required>
                         <div class="ext text-danger"  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" ></div>
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
                         </div>
-                        <input type="email" name="email" th:field="*{email}">
+                        <input type="email" name="email" th:field="*{email}" required>
                         <div class="ext text-danger"  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" name="password" th:field="*{password}">
+                        <input type="password" name="password" th:field="*{password}" required>
                         <div class="ext text-danger"  th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
                     </div>
                     <div class="input-group mb-2" sec:authorize="hasRole('ADMIN')"  >
@@ -197,10 +197,10 @@
     <script>
 
         var form_fields = document.getElementsByTagName('input')
-        form_fields[2].placeholder='First Name...';
-        form_fields[3].placeholder='Last Name...';
-        form_fields[4].placeholder='Email..';
-        form_fields[5].placeholder='Enter password...';
+        form_fields[1].placeholder='First Name...';
+        form_fields[2].placeholder='Last Name...';
+        form_fields[3].placeholder='Email..';
+        form_fields[4].placeholder='Enter password...';
 
 
 

@@ -1,8 +1,6 @@
 package th.project.enterprise.Service;
 
-import th.project.enterprise.Entity.Adress;
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.UserDetail;
+import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.UserRepoistory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,11 +57,22 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Customer user = userRepoistory.getUserByEmail(s);
+        Employee emp = userRepoistory.getEmpByEmail(s);
         UserDetail userDetails;
-        if (user == null) {
+        if (user == null && emp == null) {
             throw new UsernameNotFoundException("user not exits with this name");
         }
-        return new UserDetail(user);
+        
+        if(emp != null){
+            return new UserDetail(emp);
+            
+        }else  {
+            return new UserDetail(user);
+    
+    
+        }
+        
+        
     }
 
 
@@ -75,11 +84,14 @@ public class UserService implements UserDetailsService {
         return userRepoistory.getAllCustomer("ADMIN");
     }
     
-//    public List<User> getAllUsers() {
-//
-//        userRepoistory.
-//    }
+    public List<Employee> getAllEmployees() {
+
+      return  userRepoistory.getAllEmployees();
+    }
     
-  
+    public void removeEmployee(long id) {
+        
+        userRepoistory.deleteEmployeeById(id);
+    }
 }
 

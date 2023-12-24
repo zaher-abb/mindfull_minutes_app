@@ -38,7 +38,7 @@
             </li>
 
             <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
-                <a class="nav-link active"  >manage staff</a>
+                <a class="nav-link active" th:href="@{/User/all}" >manage staff</a>
 
             </li>
             <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
