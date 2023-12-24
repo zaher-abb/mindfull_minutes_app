@@ -7,4 +7,6 @@ public interface IngredientRepo extends JpaRepository<Ingredient,Long> {
 
 
 
+
+
 }

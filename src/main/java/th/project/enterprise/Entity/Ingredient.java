@@ -26,5 +26,8 @@ public class Ingredient {
     @JsonBackReference
     private Set<Product> products;
 
-
+public Ingredient(String name){
+    
+    this.name = name;
+}
 }
