@@ -92,21 +92,21 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String viewAddUSerForm(Model model) {
-        model.addAttribute("user", new Customer());
+        model.addAttribute("user", new Employee() );
         return "AdminAddUser";
     }
 
     @PostMapping("/addUser")
-    public String addUserByAdmin(@Valid Customer user, BindingResult result, Model model) {
+    public String addUserByAdmin(@Valid Employee employee, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "AdminAddUser";
         }
 
-        if (userService.isUserPresent(user.getEmail())) {
+        if (userService.isUserPresent(employee.getEmail())) {
             model.addAttribute("exist", true);
             return "AdminAddUser";
         }
-        userService.creatUser(user);
+        userService.creatUser(employee);
         model.addAttribute("success", true);
         try {
 

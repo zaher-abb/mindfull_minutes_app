@@ -5,8 +5,8 @@ import javax.persistence.MappedSuperclass;
 
 @Setter
 @Getter
-@MappedSuperclass
-public abstract class Employee extends User {
+@Entity
+public class Employee extends User {
     protected String personnelNo;
     protected float salary;
     protected int vacationDays;

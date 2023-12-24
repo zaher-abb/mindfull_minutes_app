@@ -28,19 +28,33 @@ public class UserService implements UserDetailsService {
         user.setPassword(encoder.encode(user.getPassword()));
         userRepoistory.save(user);
     }
+    public void creatUser(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepoistory.save(user);
+    }
 
     public Customer findByEmail(String email) {
         return userRepoistory.getUserByEmail(email);
     }
+    public User findUserByEmail(String email) {
+        return userRepoistory.getUserByEmail(email);
+    }
 
-    public boolean isUserPresent(String email) {
+    public boolean isCustomerPresent(String email) {
         Customer user = userRepoistory.getUserByEmail(email);
         if (user != null) {
             return true;
         }
         return false;
     }
-
+    public boolean isUserPresent(String email) {
+        User user = userRepoistory.getUserByEmail(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -60,5 +74,12 @@ public class UserService implements UserDetailsService {
     public List<Customer> getAllCustomer() {
         return userRepoistory.getAllCustomer("ADMIN");
     }
+    
+//    public List<User> getAllUsers() {
+//
+//        userRepoistory.
+//    }
+    
+  
 }
 

@@ -186,4 +186,14 @@ public class UserController {
             return "redirect:/User/showUserProfile";
         }
     }
+    
+    
+    @GetMapping("/all")
+    public String allEmployees(Model model) {
+    
+//        List<User> users = userService.getAllUsers();
+        
+//        model.addAttribute("emp", users);
+        return "manageStaff";
+    }
 }
