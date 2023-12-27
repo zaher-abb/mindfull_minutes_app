@@ -44,6 +44,9 @@
             <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
                 <a class="nav-link active">manage customer</a>
             </li>
+            <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+                <a class="nav-link active" th:href="@{/vouchers/all}">show Discounts</a>
+            </li>
 
 
             <li sec:authorize="!isAuthenticated()" class="nav-item">
