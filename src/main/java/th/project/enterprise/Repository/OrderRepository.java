@@ -34,7 +34,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     void updateTotalAmounte(long total, long oid);
     
     
-    @Query("select o from Order o  WHERE o.user.id=:uid ")
+    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='FINISHED'")
     List<Order> findByUserId(long uid);
 
 }

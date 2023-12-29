@@ -1,9 +1,12 @@
 package th.project.enterprise.Repository;
 
 import org.springframework.data.jpa.repository.Modifying;
+import th.project.enterprise.Entity.Customer;
 import th.project.enterprise.Entity.Voucher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 public interface VoucherRepository extends CrudRepository<Voucher, Long> {
 
@@ -17,5 +20,8 @@ public interface VoucherRepository extends CrudRepository<Voucher, Long> {
     @Modifying
     @Query("update Voucher v set v.available=0 where v.voucherID=:vid")
     void updateVorcherStatus(long vid);
+
+    @Query("SELECT v FROM Voucher v")
+    List<Voucher> findAllVouchers();
 
 }

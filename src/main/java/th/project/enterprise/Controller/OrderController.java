@@ -245,8 +245,12 @@ public class OrderController {
     public String userOrders(  Model model, Principal principal) {
         User user1 = userService.findByEmail(principal.getName());
         List<Order> orderList = orderService.getAllOrdersbyUserId(user1.getId());
+/*        for (Order i : orderList)
+            System.out.println("List orderViewForUser "+ i.getAdress());*/
         model.addAttribute("orderList", orderList);
         return "orderViewForUser";
     }
+
+
 
 }
