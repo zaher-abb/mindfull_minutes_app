@@ -1,7 +1,9 @@
 package th.project.enterprise.Controller;
 
 
+import org.aspectj.weaver.bcel.AtAjAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import th.project.enterprise.Service.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.SQLSyntaxErrorException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -172,7 +175,7 @@ public class OrderController {
             long orderId = orderService.getOrderIdInBearbeitung(user1.getId());
             Order order1 = orderService.getOrderByOrderId(orderId);
 
-            order1.setStatus(Status.FINISHED);
+            order1.setStatus(Status.CONFIRMED);
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
 
@@ -251,6 +254,24 @@ public class OrderController {
         return "orderViewForUser";
     }
 
+
+    @GetMapping("/processOrder")
+    public String processOrder( Model model, Principal principal) {
+        User user1 = userService.findByEmail(principal.getName());
+        List<Order> allOrders = orderService.getAllOrders();
+        model.addAttribute("allOrders", allOrders);
+        return "orderViewForChef";
+    }
+
+    @GetMapping("/ready")
+    public String changeToReady( @Param("orderId") long orderId) {
+        Order order1 = orderService.getOrderByOrderId(orderId);
+        System.out.println("this is orders started           "+order1.getOrderId());
+        System.out.println("the status is"+order1.getStatus());
+        order1.setStatus(Status.READY);
+        System.out.println("the status is"+order1.getStatus());
+        return "redirect:/Order/processOrder";
+    }
 
 
 }

@@ -34,7 +34,7 @@
 
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-                <a class="nav-link active">process Order</a>
+                <a class="nav-link active" th:href="@{/Order/processOrder}">process Order</a>
             </li>
 
             <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >

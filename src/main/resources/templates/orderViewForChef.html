@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html   lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+        xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <title>Pizza Pronto</title>
   <!-- CSS only -->
@@ -34,7 +34,7 @@
 
       </li>
       <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-        <a class="nav-link active">process Order</a>
+        <a class="nav-link active" th:href="@{/Order/processOrder}">process Order</a>
       </li>
 
       <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
@@ -45,7 +45,7 @@
         <a class="nav-link active">manage customer</a>
       </li>
       <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-        <a class="nav-link active" th:href="@{/vouchers/all}">show Discounts</a>
+        <a class="nav-link active" th:href="@{/vouchers/all}">show Discountss</a>
       </li>
 
 
@@ -63,32 +63,40 @@
   </div>
 </nav>
 
-<table class="table">
-  <thead class="thead-dark">
 
-  <tr>
-    <th>Order id</th>
-    <th>order Date</th>
-    <th>estimated delivery date</th>
-    <th>total to pay</th>
-    <th>status</th>
-    <th></th>
-  </tr>
 
-  </thead>
-  <tbody>
-  <tr th:each=" order : ${orderList}">
 
-<!--    <td><a type="button" class="btn btn-danger"-->
-<!--           th:href="@{/Cart/DeleteSingleIteam(Pid=${cart.product.id})}">edit Order</a></td>-->
-    <td th:text="${order.getOrderId()}"></td>
-    <td th:text="${order.getCreatDate()}"></td>
-    <td th:text="${order.getDeliveryDate()}"></td>
-    <td th:text="${order.getTotalAmount()}"></td>
-    <td th:text="${order.getStatus()}"></td>
-  </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <thead class="thead-dark">
+
+    <tr>
+      <th>Order id</th>
+      <th>order Date</th>
+      <th>estimated delivery date</th>
+      <th>total to pay</th>
+      <th>status</th>
+      <th>Ist Ready</th>
+    </tr>
+
+    </thead>
+    <tbody>
+
+    <tr th:each=" order : ${allOrders}">
+
+      <!--    <td><a type="button" class="btn btn-danger"-->
+      <!--           th:href="@{/Cart/DeleteSingleIteam(Pid=${cart.product.id})}">edit Order</a></td>-->
+      <td th:text="${order.getOrderId()}"></td>
+      <td th:text="${order.getCreatDate()}"></td>
+      <td th:text="${order.getDeliveryDate()}"></td>
+      <td th:text="${order.getTotalAmount()}"></td>
+      <td th:text="${order.getStatus()}"></td>
+      <td>
+        <a type="button" class="btn btn-success" th:href="@{/Order/ready(orderId=${order.getOrderId()})}">READY</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
 
 
 <footer style="background-color: black; color: #737272">
