@@ -22,6 +22,7 @@ public class Order {
     private LocalDateTime creatDate;
     private LocalDateTime deliveryDate;
 
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -63,5 +64,13 @@ public class Order {
 
         this.totalAmount = Math.max(totalAmount, 0);
     }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+
+
 
 }

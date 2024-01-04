@@ -118,6 +118,10 @@ public class OrderService {
         
         return orderRepository.findByUserId(idUser);
   }
+
+  public List<Order> getAllOrders(){
+        return orderRepository.getAllOrders();
+  }
 }
 
 
