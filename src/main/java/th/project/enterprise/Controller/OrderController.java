@@ -1,9 +1,7 @@
 package th.project.enterprise.Controller;
 
 
-import org.aspectj.weaver.bcel.AtAjAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,6 @@ import th.project.enterprise.Service.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.sql.SQLSyntaxErrorException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -258,7 +255,7 @@ public class OrderController {
     @GetMapping("/processOrder")
     public String processOrder( Model model, Principal principal) {
         User user1 = userService.findByEmail(principal.getName());
-        List<Order> allOrders = orderService.getAllOrders();
+        List<Order> allOrders = orderService.getAllConfirmedOrder();
         model.addAttribute("allOrders", allOrders);
         return "orderViewForChef";
     }
@@ -266,9 +263,7 @@ public class OrderController {
     @GetMapping("/ready")
     public String changeToReady( @Param("orderId") long orderId) {
         Order order1 = orderService.getOrderByOrderId(orderId);
-        System.out.println("this is orders started           "+order1.getOrderId());
-        System.out.println("the status is"+order1.getStatus());
-        order1.setStatus(Status.READY);
+        orderService.setOrderStatusToReady(orderId);
         System.out.println("the status is"+order1.getStatus());
         return "redirect:/Order/processOrder";
     }
