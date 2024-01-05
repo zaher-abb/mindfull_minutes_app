@@ -119,8 +119,12 @@ public class OrderService {
         return orderRepository.findByUserId(idUser);
   }
 
-  public List<Order> getAllOrders(){
+  public List<Order> getAllConfirmedOrder(){
         return orderRepository.getAllOrders();
+  }
+
+  public void setOrderStatusToReady(long id){
+        orderRepository.setOrderStatusToReady(id);
   }
 }
 
