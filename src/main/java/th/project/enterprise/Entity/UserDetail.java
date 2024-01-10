@@ -12,6 +12,7 @@ public class UserDetail implements UserDetails {
 
 
     private Customer user;
+    private Employee emp;
 
 
     public UserDetail(Customer user) {
@@ -19,15 +20,28 @@ public class UserDetail implements UserDetails {
         this.user = user;
 
     }
+    public UserDetail(Employee emp) {
+        super();
+        this.emp = emp;
+        
+    }
 
     public Customer getUser() {
+        
         return user;
+    }
+    
+    public Employee getEmp() {
+        
+        return emp;
     }
 
     public void setUser(Customer user) {
         this.user = user;
     }
-
+    public void setEmployee(Employee emp) {
+        this.emp = emp;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -39,12 +53,29 @@ public class UserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        
+        if(user == null) {
+            
+            return  emp.getPassword();
+        }else{
+            return user.getPassword();
+    
+    
+        }
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+    
+        if(user == null) {
+        
+            return  emp.getEmail();
+        }else{
+            return user.getEmail();
+        
+        
+        }
+      
     }
 
     @Override
@@ -68,11 +99,28 @@ public class UserDetail implements UserDetails {
     }
 
     public String getFirstname() {
-        return user.getFirstName();
+        
+        if(user == null) {
+        
+            return  emp.getFirstName();
+        }else{
+            return user.getFirstName();
+        
+        
+        }
+        
     }
 
     public String getroles() {
-        return user.getRoles();
+    
+        if(user == null) {
+    
+            return emp.getRoles();
+        }else{
+            return user.getRoles();
+        
+        
+        }
     }
 
 

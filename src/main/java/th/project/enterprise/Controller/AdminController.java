@@ -1,8 +1,6 @@
 package th.project.enterprise.Controller;
 
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.FileUploader;
-import th.project.enterprise.Entity.Product;
+import th.project.enterprise.Entity.*;
 import th.project.enterprise.Service.EmailService;
 import th.project.enterprise.Service.ProductService;
 import th.project.enterprise.Service.UserService;
@@ -20,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,21 +91,21 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String viewAddUSerForm(Model model) {
-        model.addAttribute("user", new Customer());
+        model.addAttribute("user", new Employee() );
         return "AdminAddUser";
     }
 
     @PostMapping("/addUser")
-    public String addUserByAdmin(@Valid Customer user, BindingResult result, Model model) {
+    public String addUserByAdmin(@Valid Employee employee, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "AdminAddUser";
         }
 
-        if (userService.isUserPresent(user.getEmail())) {
+        if (userService.isUserPresent(employee.getEmail())) {
             model.addAttribute("exist", true);
             return "AdminAddUser";
         }
-        userService.creatUser(user);
+        userService.creatUser(employee);
         model.addAttribute("success", true);
         try {
 
@@ -114,7 +113,13 @@ public class AdminController {
         } catch (MailException ignored) {
 
         }
-        return "redirect:/Admin/viewAdminPage";
+        return "redirect:/User/all";
+    }
+    
+    @GetMapping("/removeEmployee")
+    public String addToCart(@Param("id") long id) {
+        userService.removeEmployee(id);
+        return "redirect:/User/all";
     }
 
 

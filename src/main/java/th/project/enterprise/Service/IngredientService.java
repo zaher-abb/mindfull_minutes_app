@@ -21,10 +21,19 @@ public class IngredientService {
     public List<Ingredient> getAllIngredient() {
         return (List<Ingredient>) ingredientRepo.findAll();
     }
-
-
     
+    public void addIngredient(Ingredient ing){
+        ingredientRepo.save(ing);
+        
+    }
     
+    public void removeIngredient(long id){
+        
+        ingredientRepo.deleteById(id);
+    }
     
-    
+    public void addIngredients(List<Ingredient> ingredients) {
+        
+        ingredientRepo.saveAll(ingredients);
+    }
 }

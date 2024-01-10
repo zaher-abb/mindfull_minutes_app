@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html   lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <title>Pizza Pronto</title>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">PizzaPronto</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+
+                <li class="nav-item active" sec:authorize="isAuthenticated()">
+                    <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
+
+                    <a class="nav-link active" th:href="@{/Menu/all}">edit Menu</a>
+
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
+                    <a class="nav-link active">process Order</a>
+                </li>
+
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
+                    <a class="nav-link active" th:href="@{/User/all}" >manage staff</a>
+
+                </li>
+                <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+                    <a class="nav-link active">manage customer</a>
+                </li>
+
+
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="btn btn-info" th:href="@{/User/login}">Login</a>
+                </li>
+                <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
+                    <input class="btn btn-info"  type="submit" value="Sign Out"/>
+                </form>
+
+
+
+
+            </ul>
+        </div>
+    </nav>
+</head>
+
+
+
+
+<body style=" padding-top: 80px;">
+
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+
+  <tr>
+    <th> Name</th>
+   <th>Email</th>
+    <th>Gender</th>
+    <th>salary</th>
+    <th>status</th>
+    <th>Working hours</th>
+    <th></th>
+  </tr>
+
+  </thead>
+  <tbody>
+  <tr th:each=" employee : ${employeeList}">
+
+<!--    <td><a type="button" class="btn btn-danger"-->
+<!--           th:href="@{/Cart/DeleteSingleIteam(Pid=${cart.product.id})}">edit Order</a></td>-->
+      <td th:text="${employee.getFullname()}"></td>
+      <td th:text="${employee.getEmail()}"></td>
+    <td th:text="${employee.getGender()}"></td>
+    <td th:text="${employee.getSalary()}"></td>
+    <td th:text="${employee.getRoles()}"></td>
+    <td th:text="${employee.getWorkingHours()}"></td>
+      <td>
+      <button class="btn btn-danger " > <a class="nav-link active" th:href="@{/Admin/removeEmployee(id=${employee.getId()})}">remove Employee</a></button>
+      </td>
+  </tr>
+  </tbody>
+</table>
+<div  sec:authorize="isAuthenticated()" class="col-lg-12 center">
+
+    <button class="btn btn-dark"> <a class="nav-link active" th:href="@{/Admin/addUser}">Add Employee</a></button>
+
+
+
+
+</div>
+
+<footer style="background-color: black; color: #737272">
+  <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
+</footer>
+</body>
+</html>

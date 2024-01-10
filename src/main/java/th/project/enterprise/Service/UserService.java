@@ -1,8 +1,6 @@
 package th.project.enterprise.Service;
 
-import th.project.enterprise.Entity.Adress;
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.UserDetail;
+import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.UserRepoistory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,28 +26,53 @@ public class UserService implements UserDetailsService {
         user.setPassword(encoder.encode(user.getPassword()));
         userRepoistory.save(user);
     }
+    public void creatUser(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepoistory.save(user);
+    }
 
     public Customer findByEmail(String email) {
         return userRepoistory.getUserByEmail(email);
     }
+    public User findUserByEmail(String email) {
+        return userRepoistory.getUserByEmail(email);
+    }
 
-    public boolean isUserPresent(String email) {
+    public boolean isCustomerPresent(String email) {
         Customer user = userRepoistory.getUserByEmail(email);
         if (user != null) {
             return true;
         }
         return false;
     }
-
+    public boolean isUserPresent(String email) {
+        User user = userRepoistory.getUserByEmail(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Customer user = userRepoistory.getUserByEmail(s);
+        Employee emp = userRepoistory.getEmpByEmail(s);
         UserDetail userDetails;
-        if (user == null) {
+        if (user == null && emp == null) {
             throw new UsernameNotFoundException("user not exits with this name");
         }
-        return new UserDetail(user);
+        
+        if(emp != null){
+            return new UserDetail(emp);
+            
+        }else  {
+            return new UserDetail(user);
+    
+    
+        }
+        
+        
     }
 
 
@@ -59,6 +82,16 @@ public class UserService implements UserDetailsService {
 
     public List<Customer> getAllCustomer() {
         return userRepoistory.getAllCustomer("ADMIN");
+    }
+    
+    public List<Employee> getAllEmployees() {
+
+      return  userRepoistory.getAllEmployees();
+    }
+    
+    public void removeEmployee(long id) {
+        
+        userRepoistory.deleteEmployeeById(id);
     }
 }
 

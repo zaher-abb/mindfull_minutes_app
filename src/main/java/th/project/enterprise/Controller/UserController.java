@@ -1,8 +1,6 @@
 package th.project.enterprise.Controller;
 
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.User;
-import th.project.enterprise.Entity.Adress;
+import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.AdressRepository;
 import th.project.enterprise.Service.AdressService;
 
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/User")
@@ -72,15 +71,7 @@ public class UserController {
         }
         return "redirect:/Product/Home";
     }
-    
-//    @GetMapping("/default")
-//    public String defaultAfterLogin(HttpServletRequest request) {
-//        if (request.isUserInRole("ROLE_ADMIN")) {
-//            return "redirect:/Home";
-//        }
-//        return "redirect:/Home";
-//    }
-//
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -185,5 +176,15 @@ public class UserController {
             }
             return "redirect:/User/showUserProfile";
         }
+    }
+    
+    
+    @GetMapping("/all")
+    public String allEmployees(Model model, Principal principal) {
+    
+        List<Employee> employeeList = userService.getAllEmployees();
+        
+       model.addAttribute("employeeList", employeeList);
+        return "manageStaff";
     }
 }
