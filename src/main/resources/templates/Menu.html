@@ -28,7 +28,7 @@
 
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-                <a class="nav-link active">process Order</a>
+                <a class="nav-link active" th:href="@{/order/processOrder}">process Order</a>
             </li>
             <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
                 <a class="nav-link active" th:href="@{/User/all}" >manage staff</a>
@@ -50,9 +50,6 @@
                     <input class="btn btn-outline-light"  type="submit" value="Sign Out"/>
                 </form>
             </li>
-
-
-
         </ul>
     </div>
 </nav>

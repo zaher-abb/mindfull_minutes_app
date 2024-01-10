@@ -172,7 +172,7 @@ public class OrderController {
             long orderId = orderService.getOrderIdInBearbeitung(user1.getId());
             Order order1 = orderService.getOrderByOrderId(orderId);
 
-            order1.setStatus(Status.FINISHED);
+            order1.setStatus(Status.CONFIRMED);
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
 
@@ -245,8 +245,28 @@ public class OrderController {
     public String userOrders(  Model model, Principal principal) {
         User user1 = userService.findByEmail(principal.getName());
         List<Order> orderList = orderService.getAllOrdersbyUserId(user1.getId());
+/*        for (Order i : orderList)
+            System.out.println("List orderViewForUser "+ i.getAdress());*/
         model.addAttribute("orderList", orderList);
         return "orderViewForUser";
     }
+
+
+    @GetMapping("/processOrder")
+    public String processOrder( Model model, Principal principal) {
+        User user1 = userService.findByEmail(principal.getName());
+        List<Order> allOrders = orderService.getAllConfirmedOrder();
+        model.addAttribute("allOrders", allOrders);
+        return "orderViewForChef";
+    }
+
+    @GetMapping("/ready")
+    public String changeToReady( @Param("orderId") long orderId) {
+        Order order1 = orderService.getOrderByOrderId(orderId);
+        orderService.setOrderStatusToReady(orderId);
+        System.out.println("the status is"+order1.getStatus());
+        return "redirect:/Order/processOrder";
+    }
+
 
 }

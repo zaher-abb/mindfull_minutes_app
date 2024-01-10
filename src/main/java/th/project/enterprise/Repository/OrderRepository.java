@@ -32,9 +32,16 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Modifying
     @Query("update Order o set o.totalAmount=:total  WHERE o.orderId=:oid")
     void updateTotalAmounte(long total, long oid);
-    
-    
-    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='FINISHED'")
+
+    @Query("select o from Order o  WHERE o.user.id=:uid and o.status='CONFIRMED'")
+
     List<Order> findByUserId(long uid);
+
+    @Query("select o from Order o  WHERE  o.status='CONFIRMED'")
+    List<Order> getAllOrders();
+    @Modifying
+    @Query("update Order o set o.status = 'ready' where o.orderId = :oid and o.status = 'CONFIRMED'")
+    void setOrderStatusToReady(long oid);
+
 
 }

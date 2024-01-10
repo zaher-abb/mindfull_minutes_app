@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html   lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Pizza Pronto</title>
     <!-- CSS only -->
@@ -10,14 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+
 </head>
-<body id="homebody">
 
 
 
 
+<body style=" padding-top: 0px;">
 
-
+<!-- JavaScript to show the toast on button click -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">PizzaPronto</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,17 +29,17 @@
 
 
             <li class="nav-item active" sec:authorize="isAuthenticated()">
-<!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
+                <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
 
                 <a class="nav-link active" th:href="@{/Menu/all}">edit Menu</a>
 
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-                <a class="nav-link active" th:href="@{/Order/processOrder}">process Order</a>
+                <a class="nav-link active" th:href="@{/order/processOrder}">process Order</a>
             </li>
 
             <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
-                <a class="nav-link active" th:href="@{/User/all}" >manage staff</a>
+                <a class="nav-link active"  >manage staff</a>
 
             </li>
             <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
@@ -52,9 +53,9 @@
             <li sec:authorize="!isAuthenticated()" class="nav-item">
                 <a class="btn btn-info" th:href="@{/User/login}">Login</a>
             </li>
-                <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
-                    <input class="btn btn-info"  type="submit" value="Sign Out"/>
-                </form>
+            <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
+                <input class="btn btn-info"  type="submit" value="Sign Out"/>
+            </form>
 
 
 
@@ -62,25 +63,43 @@
         </ul>
     </div>
 </nav>
-<header>
-    <h1 sec:authorize="isAuthenticated()">Willkommen in deinem Pizza-Pronto  Portal, <a  th:href="@{/User/showUserProfile}" sec:authentication="principal.firstname"> </a> !</h1>
-</header>
-<div id="div-over-body">
+
+<table class="table">
+    <thead class="thead-dark">
+
+    <tr>
+        <th>Voucher id</th>
+        <th>Serial Number</th>
+        <th>Amount</th>
+        <th>Available</th>
+        <th>Pin</th>
+        <th>Delete Voucher</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr th:each=" voucher : ${vouchers}" th:id="'row-' + ${voucher.getVoucherID()}">
+        <td th:text="${voucher.getVoucherID()}"></td>
+        <td th:text="${voucher.getSerialNumber()}"></td>
+        <td th:text="${voucher.getAmount()}"></td>
+        <td th:text="${voucher.getAvailable()}"></td>
+        <td th:text="${voucher.getPin()}"></td>
+        <td>
+            <a type="button" class="btn btn-danger"
+               th:href="@{/vouchers/deleteVoucher(voucherID=${voucher.voucherID})}">Remove</a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div style="background-color: #353c4e" sec:authorize="isAuthenticated()">
+    <a class="nav-link active" th:href="@{/vouchers/viewAddDiscountPage}">Add Discount</a>
+</div>
 
 
-
-
-
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-
-<!-- Footer -->
-<footer class="bg-dark">
+<footer style="background-color: black; color: #737272">
     <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
 </footer>
-</div>
 </body>
 </html>
