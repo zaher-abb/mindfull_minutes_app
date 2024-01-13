@@ -23,19 +23,22 @@
                 <li class="nav-item active" sec:authorize="isAuthenticated()">
                     <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
 
-                    <a class="nav-link active" th:href="@{/Menu/all}">edit Menu</a>
+                    <a class="nav-link active" th:href="@{/Menu/all}">Edit Menu</a>
 
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-                    <a class="nav-link active">process Order</a>
+                    <a class="nav-link active" th:href="@{/Order/processOrder}">Process Order</a>
                 </li>
 
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
-                    <a class="nav-link active" th:href="@{/User/all}" >manage staff</a>
+                    <a class="nav-link active" th:href="@{/User/all}" >Manage Staff</a>
 
                 </li>
                 <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-                    <a class="nav-link active">manage customer</a>
+                    <a class="nav-link active">Manage Customer</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+                    <a class="nav-link active" th:href="@{/vouchers/all}">Show Discounts</a>
                 </li>
 
 
@@ -62,49 +65,53 @@
 
 
 
+<div class="container">
+    <table class="table table-bordered mx-auto">
+      <thead class="thead-dark">
 
-<table class="table">
-  <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+       <th>Email</th>
+        <th>Gender</th>
+        <th>Salary</th>
+        <th>Status</th>
+        <th>Working Hours</th>
+        <th></th>
+      </tr>
 
-  <tr>
-    <th> Name</th>
-   <th>Email</th>
-    <th>Gender</th>
-    <th>salary</th>
-    <th>status</th>
-    <th>Working hours</th>
-    <th></th>
-  </tr>
+      </thead>
+      <tbody>
+      <tr th:each=" employee : ${employeeList}">
 
-  </thead>
-  <tbody>
-  <tr th:each=" employee : ${employeeList}">
+    <!--    <td><a type="button" class="btn btn-danger"-->
+    <!--           th:href="@{/Cart/DeleteSingleIteam(Pid=${cart.product.id})}">edit Order</a></td>-->
+          <td th:text="${employee.getFullname()}"></td>
+          <td th:text="${employee.getEmail()}"></td>
+        <td th:text="${employee.getGender()}"></td>
+        <td th:text="${employee.getSalary()}"></td>
+        <td th:text="${employee.getRoles()}"></td>
+        <td th:text="${employee.getWorkingHours()}"></td>
+          <td>
+          <button class="btn btn-danger btn-sm custom-btn d-flex align-items-center justify-content-center" > <a class="nav-link active" th:href="@{/Admin/removeEmployee(id=${employee.getId()})}">Remove Employee</a></button>
+          </td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+<div  sec:authorize="isAuthenticated()" class="d-flex justify-content-center">
 
-<!--    <td><a type="button" class="btn btn-danger"-->
-<!--           th:href="@{/Cart/DeleteSingleIteam(Pid=${cart.product.id})}">edit Order</a></td>-->
-      <td th:text="${employee.getFullname()}"></td>
-      <td th:text="${employee.getEmail()}"></td>
-    <td th:text="${employee.getGender()}"></td>
-    <td th:text="${employee.getSalary()}"></td>
-    <td th:text="${employee.getRoles()}"></td>
-    <td th:text="${employee.getWorkingHours()}"></td>
-      <td>
-      <button class="btn btn-danger " > <a class="nav-link active" th:href="@{/Admin/removeEmployee(id=${employee.getId()})}">remove Employee</a></button>
-      </td>
-  </tr>
-  </tbody>
-</table>
-<div  sec:authorize="isAuthenticated()" class="col-lg-12 center">
-
-    <button class="btn btn-dark"> <a class="nav-link active" th:href="@{/Admin/addUser}">Add Employee</a></button>
-
-
-
+    <button class="btn btn-success btn-sm"> <a class="nav-link active" th:href="@{/Admin/addUser}">Add Employee</a></button>
 
 </div>
 
-<footer style="background-color: black; color: #737272">
-  <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
+<footer class="bg-dark d-flex justify-content-center mt-10">
+    <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
 </footer>
 </body>
 </html>
+
+<style>
+    .custom-btn {
+        height: 25px; /* Set your desired height in pixels */
+    }
+</style>
