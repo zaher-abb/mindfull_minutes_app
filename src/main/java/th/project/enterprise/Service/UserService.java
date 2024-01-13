@@ -1,5 +1,7 @@
 package th.project.enterprise.Service;
 
+import ch.qos.logback.core.CoreConstants;
+import th.project.enterprise.Controller.MessageLogic;
 import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.UserRepoistory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Service
-public class UserService implements UserDetailsService {
+public class UserService  implements UserDetailsService,java.util.Observer {
 
     @Autowired
     private UserRepoistory userRepoistory;
-
-
+    
+    @Autowired
+    private MessageService messageService;
+    
+    @Autowired
+    private MessageLogic messageLogic;
     public void creatUser(Customer user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
@@ -93,5 +100,18 @@ public class UserService implements UserDetailsService {
         
         userRepoistory.deleteEmployeeById(id);
     }
+    
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+//        messageLogic.buildAndSendMessage();
+        
+        List<Employee> admins = userRepoistory.getUsersByRole("ADMIN");
+        List<String> mailList = new ArrayList<>();
+        for (Employee employee : admins) {
+            mailList.add(employee.getEmail());
+        }
+        messageService.sendMail(mailList);
+    }
+    
 }
 
