@@ -18,7 +18,7 @@
 <body style=" padding-top: 0px;">
 
 <!-- JavaScript to show the toast on button click -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<n<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#">PizzaPronto</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -30,22 +30,22 @@
       <li class="nav-item active" sec:authorize="isAuthenticated()">
         <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
 
-        <a class="nav-link active" th:href="@{/Menu/all}">edit Menu</a>
+        <a class="nav-link active" th:href="@{/Menu/all}">Edit Menu</a>
 
       </li>
       <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-        <a class="nav-link active">process Order</a>
+        <a class="nav-link active" th:href="@{/Order/processOrder}">Process Order</a>
       </li>
 
       <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
-        <a class="nav-link active"  >manage staff</a>
+        <a class="nav-link active" th:href="@{/User/all}" >Manage Staff</a>
 
       </li>
       <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-        <a class="nav-link active">manage customer</a>
+        <a class="nav-link active">Manage Customer</a>
       </li>
       <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-        <a class="nav-link active" th:href="@{/vouchers/all}">show Discounts</a>
+        <a class="nav-link active" th:href="@{/vouchers/all}">Show Discounts</a>
       </li>
 
 

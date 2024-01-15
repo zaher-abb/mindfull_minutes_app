@@ -10,71 +10,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
   <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">PizzaPronto</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+
+
+        <li class="nav-item active" sec:authorize="isAuthenticated()">
+          <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
+
+          <a class="nav-link active" th:href="@{/Menu/all}">Edit Menu</a>
+
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
+          <a class="nav-link active" th:href="@{/Order/processOrder}">Process Order</a>
+        </li>
+
+        <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
+          <a class="nav-link active" th:href="@{/User/all}" >Manage Staff</a>
+
+        </li>
+        <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+          <a class="nav-link active">Manage Customer</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
+          <a class="nav-link active" th:href="@{/vouchers/all}">Show Discounts</a>
+        </li>
+
+
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="btn btn-info" th:href="@{/User/login}">Login</a>
+        </li>
+        <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
+          <input class="btn btn-info"  type="submit" value="Sign Out"/>
+        </form>
+
+
+
+
+      </ul>
+    </div>
+  </nav>
 </head>
 
 
 
 
-<body style=" padding-top: 0px;">
+<body style=" padding-top: 80px;">
 
 <!-- JavaScript to show the toast on button click -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">PizzaPronto</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-
-
-      <li class="nav-item active" sec:authorize="isAuthenticated()">
-        <!--                <a class="nav-link active" th:href="@{/Admin/viewAdminPage}">edit Menu</a>-->
-
-        <a class="nav-link active" th:href="@{/Menu/all}">edit Menu</a>
-
-      </li>
-      <li sec:authorize="isAuthenticated()" class="nav-item mr-10">
-        <a class="nav-link active" th:href="@{/Order/processOrder}">process Order</a>
-      </li>
-
-      <li sec:authorize="hasRole('ADMIN')" class="nav-item active" >
-        <a class="nav-link active"  >manage staff</a>
-
-      </li>
-      <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-        <a class="nav-link active">manage customer</a>
-      </li>
-      <li sec:authorize="hasRole('ADMIN')"  class="nav-item mr-10">
-        <a class="nav-link active" th:href="@{/vouchers/all}">show Discountss</a>
-      </li>
-
-
-      <li sec:authorize="!isAuthenticated()" class="nav-item">
-        <a class="btn btn-info" th:href="@{/User/login}">Login</a>
-      </li>
-      <form sec:authorize="isAuthenticated()" th:action="@{/User/logout}" method="post">
-        <input class="btn btn-info"  type="submit" value="Sign Out"/>
-      </form>
 
 
 
 
-    </ul>
-  </div>
-</nav>
-
-
-
-
-  <table class="table">
+<div class="container">
+  <table class="table table-bordered mx-auto">
     <thead class="thead-dark">
-
     <tr>
-      <th>Order id</th>
-      <th>order Date</th>
-      <th>estimated delivery date</th>
-      <th>total to pay</th>
-      <th>status</th>
+      <th>Order ID</th>
+      <th>Order Date</th>
+      <th>Estimated Delivery Date</th>
+      <th>Total to Pay</th>
+      <th>Status</th>
       <th>Ist Ready</th>
     </tr>
 
@@ -96,10 +97,10 @@
     </tr>
     </tbody>
   </table>
+</div>
 
 
-
-<footer style="background-color: black; color: #737272">
+<footer class="bg-dark d-flex justify-content-center mt-10">
   <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
 </footer>
 </body>
