@@ -1,7 +1,5 @@
 package th.project.enterprise.Service;
 
-import ch.qos.logback.core.CoreConstants;
-import th.project.enterprise.Controller.MessageLogic;
 import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.UserRepoistory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,7 @@ public class UserService  implements UserDetailsService,java.util.Observer {
     @Autowired
     private MessageService messageService;
     
-    @Autowired
-    private MessageLogic messageLogic;
+ 
     public void creatUser(Customer user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
@@ -103,7 +100,6 @@ public class UserService  implements UserDetailsService,java.util.Observer {
     
     @Override
     public void update(java.util.Observable o, Object arg) {
-//        messageLogic.buildAndSendMessage();
         
         List<Employee> admins = userRepoistory.getUsersByRole("ADMIN");
         List<String> mailList = new ArrayList<>();
