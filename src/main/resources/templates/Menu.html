@@ -59,14 +59,12 @@
 </nav>
 
 
-<center>
-    <!--<a  class="btn btn-outline-dark" th:href="@{/Admin/viewAddProductPage}">&#x2190; Add Dish</a>-->
-
+<!--<center>
     <div class="alert alert-info" th:if="${success}" style="color: #d58512 ;" >
         <p class="text text-center">
             Adding User is success!!
         </p>
-</center>
+</center>-->
 
 
 <!-- Products-->
@@ -84,7 +82,7 @@
                     <!--<h6> <span th:text="${products.name}"></span></h6>-->
                     <hr>
                     <li >
-                        Price :<span th:text="${products.price}"> € </span>
+                        Price : <span th:text="${products.price} + '&euro;'"></span>
                     </li>
                     <!-- Add to Card -->
 

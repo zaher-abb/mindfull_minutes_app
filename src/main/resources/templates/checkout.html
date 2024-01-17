@@ -117,15 +117,15 @@
 			<a  class="btn btn-outline-dark" th:href="@{/Order/BackToCart}" >&#x2190; Back to Cart</a>
 		<hr>
 		<h3>Total Amount : </h3>
-		<p th:text="${totalAmount}"></p>
+		<p th:text="${totalAmount}+ '&euro;'"></p>
 		<hr>
-		<tr th:each="orderiteam : ${orderIteams}">
+		<tr th:each="orderiteam : ${orderIteams} ">
 			<div class="cart-row">
 				<div style="flex:2"><img class="row-image" th:src="${orderiteam.product.pictureUrl}"></div>
 				<div style="flex:2"> <a type="button" class="btn btn-danger"  th:href="@{/Order/DeleteSingleOrderIteam(Pid=${orderiteam.product.id})}" >Remove</a></div>
-				<div style="flex:2"><p th:text="${orderiteam.product.price}"> </p></div>
+				<div style="flex:2"><p th:text="${orderiteam.product.price}+ '&euro;'"> </p></div>
 				<div style="flex:1"><p th:text="${orderiteam.quantity}" > </pth:text>  </p></div>
-				<div style="flex:1"><p th:text="${orderiteam.totalamountSingelIteam}" > </pth:text>  </p></div>
+				<div style="flex:1"><p th:text="${orderiteam.totalamountSingelIteam}+ '&euro;'" > </pth:text>  </p></div>
 			</div>
 		</tr>
 	</div>
