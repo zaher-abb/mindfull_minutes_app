@@ -11,16 +11,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Service
-public class UserService implements UserDetailsService {
+public class UserService  implements UserDetailsService,java.util.Observer {
 
     @Autowired
     private UserRepoistory userRepoistory;
-
-
+    
+    @Autowired
+    private MessageService messageService;
+    
+ 
     public void creatUser(Customer user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
@@ -93,5 +97,17 @@ public class UserService implements UserDetailsService {
         
         userRepoistory.deleteEmployeeById(id);
     }
+    
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        
+        List<Employee> admins = userRepoistory.getUsersByRole("ADMIN");
+        List<String> mailList = new ArrayList<>();
+        for (Employee employee : admins) {
+            mailList.add(employee.getEmail());
+        }
+        messageService.sendMail(mailList);
+    }
+    
 }
 
