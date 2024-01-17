@@ -47,7 +47,7 @@ public class VoucherController {
 
     @GetMapping("/AddVoucher")
     public String addVoucher() {
-        System.out.println("Just to test");
+
         return "redirect:/vouchers/all";
     }
 

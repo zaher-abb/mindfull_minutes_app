@@ -127,13 +127,10 @@ public class MenuController {
     public String uploadFile(@Param("image") MultipartFile image,@RequestParam List<Long> ingredientIds, Product p) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
         p.setPictureUrl("/images/" + fileName);
-        String uploadDir = "C:\\Users\\zzermani\\OneDrive - Technische Hochschule Brandenburg\\Desktop\\WinterSemester 2023-24\\SAQS\\Projekt\\Projekt-final-19.12.2023\\Online-Shop-Spring-Boot\\src\\main\\resources\\static\\images";
-        
-        
-        
+        String uploadDir = "C:\\Users\\zaher\\IntelliJ_EE_Projecte\\enterprise\\src\\main\\resources\\static\\images";
+
         FileUploader.saveFile(uploadDir, fileName, image);
         productService.addProduct(p,ingredientIds);
-//        productService.addIngredientToProduct(p.getId(),ingredientIds);
   
       return "redirect:/Menu/all";
     }
