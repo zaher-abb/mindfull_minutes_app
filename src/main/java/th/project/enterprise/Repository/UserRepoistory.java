@@ -31,6 +31,5 @@ public interface UserRepoistory extends CrudRepository<User, Long> {
     
     @Query("SELECT m FROM Employee m WHERE m.roles  LIKE %:role%")
     List<Employee> getUsersByRole(String role);
-    //    @Query("SELECT m FROM Customer m WHERE m.roles not LIKE %:role%")
-//    List<Customer> getAllCustomer(String role);
+
 }

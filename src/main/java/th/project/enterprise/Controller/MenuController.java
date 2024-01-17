@@ -61,21 +61,6 @@ public class MenuController {
         }
     }
 
-    @GetMapping("/pizza")
-    public String Laptops(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("pizza");
-        model.addAttribute("p1", products);
-        return "main";
-    }
-
-    @GetMapping("/pasta")
-    public String sport(Model model) {
-        List<Product> products = productService.getAllProductWithCategorie("pasta");
-        model.addAttribute("p1", products);
-        return "main";
-    }
-
-
     @GetMapping("view")
     public String viewSingelProduct(@Param("Pid") long Pid, Model model) {
         Product products = productService.getSingelProductById(Pid);

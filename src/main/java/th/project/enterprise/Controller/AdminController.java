@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,14 +75,12 @@ public class AdminController {
         String uploadDir = "C:\\Users\\zaher\\IntelliJ_EE_Projecte\\enterprise\\src\\main\\resources\\static\\images";
 
         FileUploader.saveFile(uploadDir, fileName, image);
-//        productService.addProduct(p, ingredientIds);
         return "redirect:/Admin/viewAdminPage";
     }
 
     @GetMapping("/delete")
     public String deleteProudct(@Param("id") long id) {
         productService.deleteProductById(id);
-
         return "redirect:/Admin/viewAdminPage";
     }
 
@@ -107,12 +103,6 @@ public class AdminController {
         }
         userService.creatUser(employee);
         model.addAttribute("success", true);
-        try {
-
-            //        emailService.registrationConfirmationEmail(user);
-        } catch (MailException ignored) {
-
-        }
         return "redirect:/User/all";
     }
     

@@ -39,7 +39,6 @@ public class OrderIteamService {
 
             orderIteamRepository.save(order_itemas1);
         }
-//        order1.setStatus("in Bearbeitung");
     }
 
 

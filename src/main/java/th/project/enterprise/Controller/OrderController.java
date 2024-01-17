@@ -99,7 +99,6 @@ public class OrderController  {
         }
     }
 
-
     @GetMapping("/viewConfirmedPage")
     public String viewConfirmedPage(Principal principal, Model model) {
         Customer user1 = userService.findByEmail(principal.getName());
@@ -181,8 +180,6 @@ public class OrderController  {
     
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
-
-            /*emailService.orderConfirmationEmail(user1, order1.getDeliveryDate());*/
             return "redirect:/Product/Home";
         }
     }
@@ -218,7 +215,6 @@ public class OrderController  {
         }
     }
 
-
     @GetMapping("/cancelOrder")
     public String cancelOrder(Principal principal) {
 
@@ -245,14 +241,10 @@ public class OrderController  {
             return "redirect:/Cart/viewCart";
         }
     }
-    
-    
     @GetMapping("/userorders")
     public String userOrders(  Model model, Principal principal) {
         User user1 = userService.findByEmail(principal.getName());
         List<Order> orderList = orderService.getAllOrdersbyUserId(user1.getId());
-/*        for (Order i : orderList)
-            System.out.println("List orderViewForUser "+ i.getAdress());*/
         model.addAttribute("orderList", orderList);
         return "orderViewForUser";
     }

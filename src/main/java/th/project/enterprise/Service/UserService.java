@@ -39,9 +39,7 @@ public class UserService  implements UserDetailsService,java.util.Observer {
     public Customer findByEmail(String email) {
         return userRepoistory.getUserByEmail(email);
     }
-    public User findUserByEmail(String email) {
-        return userRepoistory.getUserByEmail(email);
-    }
+
 
     public boolean isCustomerPresent(String email) {
         Customer user = userRepoistory.getUserByEmail(email);
@@ -62,7 +60,6 @@ public class UserService  implements UserDetailsService,java.util.Observer {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Customer user = userRepoistory.getUserByEmail(s);
         Employee emp = userRepoistory.getEmpByEmail(s);
-        UserDetail userDetails;
         if (user == null && emp == null) {
             throw new UsernameNotFoundException("user not exits with this name");
         }

@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface VoucherRepository extends CrudRepository<Voucher, Long> {
 
-
     @Query("select count(v) from Voucher v where v.pin=:couponCode and v.available <> 0")
     int checkIfCodeIsAvailable(String couponCode);
 

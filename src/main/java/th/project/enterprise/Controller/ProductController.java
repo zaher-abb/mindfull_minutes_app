@@ -20,9 +20,7 @@ public class ProductController {
 
     @GetMapping("/Home")
     public String showHomePage(Model model) {
-
         List<Product> products = productService.getAllProduct();
-
         model.addAttribute("p1", products);
         return "main";
     }
@@ -68,7 +66,6 @@ public class ProductController {
 
         return "singelView";
     }
-
 
     @GetMapping("/orderByPriceAsc")
     public String OrderByPriceAsc(Model model) {

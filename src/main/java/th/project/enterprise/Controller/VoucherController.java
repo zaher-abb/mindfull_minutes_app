@@ -3,13 +3,9 @@ package th.project.enterprise.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import th.project.enterprise.Entity.Customer;
-import th.project.enterprise.Entity.Product;
 import th.project.enterprise.Entity.Voucher;
 import th.project.enterprise.Service.VoucherService;
 
@@ -45,9 +41,9 @@ public class VoucherController {
         return "addVoucher";
     }
 
-    @GetMapping("/AddVoucher")
-    public String addVoucher() {
-
+    @PostMapping("/AddVoucher")
+    public String addVoucher(Voucher v1) {
+        voucherService.addVourcher(v1);
         return "redirect:/vouchers/all";
     }
 

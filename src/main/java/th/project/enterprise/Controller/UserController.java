@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.Observable;
 
 @Controller
 @RequestMapping("/User")
@@ -182,7 +181,7 @@ public class UserController  {
     
     
     @GetMapping("/all")
-    public String allEmployees(Model model, Principal principal) {
+    public String allEmployees(Model model) {
     
         List<Employee> employeeList = userService.getAllEmployees();
         

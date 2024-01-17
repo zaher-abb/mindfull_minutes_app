@@ -18,18 +18,11 @@ public class HomePage {
     
     @GetMapping("start")
     public String showHomePage(Model model) {
-
-//        List<Product> products = productService.getAllProduct();
-
-//        model.addAttribute("p1", products);
         return "login";
     }
     @GetMapping("Home")
     public String startPage(Model model) {
-        
-        //        List<Product> products = productService.getAllProduct();
-        
-        //        model.addAttribute("p1", products);
+
         return "homePage";
     }
  

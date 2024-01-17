@@ -15,14 +15,11 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
     @Query("update Cart c set c.quantity=:number where c.product.id=:pid")
     void updateNumerOfIteams(long pid, int number);
 
-
     @Query("select c from Cart c where c.userID=:uid")
     List<Cart> findAllCartIteamForOneUser(long uid);
 
-
     @Query("select c from Cart c WHERE  c.product.id=:pid and c.userID=:uid")
     Cart getSingleCartIteam(long pid, long uid);
-
 
     @Modifying
     @Query("DELETE  from Cart c where c.userID=:uid")

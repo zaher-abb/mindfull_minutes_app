@@ -82,11 +82,6 @@ public class OrderService extends Observable {
         }
     }
 
-    /*
-        public List<Voucher> getVoucherByOrderId(long oid) {
-            return voucherRepository.getVoucherByOrderId(oid);
-        }
-    */
     public boolean checkIfUserhasOrderStarted(long uid) {
 
         if (orderRepository.checkIfUserhasOrderStarted(uid) >= 1) {
@@ -99,7 +94,6 @@ public class OrderService extends Observable {
     public void cancelledOrderStatus(long uid) {
         List<Order> orderList = orderRepository.getAllOrderStarted(uid);
         for (Order o : orderList) {
-            /*o.setStatus("cancelled");*/
             orderIteamRepository.deleteAllOrderIteamWithCancelledStatus(o.getOrderId());
             orderRepository.delete(o);
         }

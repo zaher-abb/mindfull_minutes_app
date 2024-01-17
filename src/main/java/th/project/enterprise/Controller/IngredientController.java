@@ -22,8 +22,6 @@ import java.util.List;
 @RequestMapping("/Ingredient")
 public class IngredientController {
 
-    @Autowired
-    private ProductService productService;
     
     @Autowired
     private IngredientService ingredientService;
@@ -44,30 +42,8 @@ public class IngredientController {
         ) {
             ingredientService.addIngredient(new Ingredient(name));
         }
-//        ingredientService.addIngredients(ingredients);
-//        ingredientService.addIngredient(ingredient);
-        // Add logic to save multiple ingredients to the database
-        // For example: ingredientService.addIngredients(ingredients);
+
         return "redirect:/Menu/all";
     }
-    
-    
-    public class IngredientForm {
-        private List<Ingredient> ingredients;
-        
-        // Getter and Setter for ingredients
-        
-        public IngredientForm() {
-            ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient()); // Start with one ingredient field
-        }
-    
-        public List<Ingredient> getIngredients() {
-            return  ingredients;
-        }
-    }
-
-
-
 }
 
