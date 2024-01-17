@@ -113,9 +113,9 @@
          <!-- Toast message -->
          <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 
-             <div class="toast-body">
+             <!--<div class="toast-body">
                  one Dish added to the Card !
-             </div>
+             </div>-->
          </div>
      </div>
 
@@ -125,26 +125,65 @@
                 <br>
                <div class="row">
 	<tr th:each="products : ${p1}">
+
+
+
 		<div class="col-lg-4">
 			<img class="thumbnail" th:src="${products.pictureUrl}">
 			<div class="box-element product">
-
-                    <h6> <span th:text="${products.name}"></span></h6>
+                <h3><span th:text="${products.name}" class="float-start badge rounded-pill bg-dark" style="background-color: #FF5733; color: white;"></span></h3>
 				<hr>
                 <li >
-                    Price :<span th:text="${products.price}"> $ </span>
+                    Price :<span th:text="${products.price} + '&euro;'">  </span>
                 </li>
-                <!-- Add to Card -->
+                <li>Description: <span th:utext="${products.shortDescreption}"></span></li>
 
+
+
+                <div class="mt-4">
+                    <!-- Add to Card -->
                     <a  name="showToastLink" th:href="@{/Cart/addToCart(id=${products.id})}" class="btn btn-outline-secondary add-btn">Add to Cart</a>
+                    <!-- View -->
+                    <a class="btn btn-outline-success" th:href="@{/Product/view(Pid=${products.id})}">View</a>
+                </div>
 
-
-
-                <!-- View -->
-				<a class="btn btn-outline-success" th:href="@{/Product/view(Pid=${products.id})}">View</a>
-                <li>Descreption: <span th:utext="${products.shortDescreption}"></span></li>
 			</div>
 		</div>
+
+
+
+        <!--<div class="col-lg-4">
+            <img class="thumbnail" th:src="${products.pictureUrl}">
+            <div class="box-element product">
+                <h3><span th:text="${products.name}" class="float-start badge rounded-pill bg-dark" style="background-color: #FF5733; color: white;"></span></h3>
+                &lt;!&ndash;<span th:text="${products.price}" class="float-end price-hp"></span>&ndash;&gt;
+                &lt;!&ndash;<h6> <span th:text="${products.name}"></span></h6>&ndash;&gt;
+                <hr>
+                <li >
+                    Price :<span th:text="${products.price}"> € </span>
+                </li>
+                &lt;!&ndash; Add to Card &ndash;&gt;
+
+
+
+                <li>Ingredients: <span th:each="ingredient : ${products.getIngredients()}">
+
+                        <span th:text="${ingredient.name}"> </span>,
+                    </span>
+                </li>
+                <li>Description: <span th:utext="${products.shortDescreption}"></span></li>
+                <div clasS="mt-4">
+                    <a th:href="@{/Menu/update(id=${products.id})}" class="btn btn-outline-secondary add-btn">Update</a>
+                    &lt;!&ndash; View &ndash;&gt;
+                    <a class="btn btn btn-danger" th:href="@{/Menu/delete(id=${products.id})}">Delete</a>
+                </div>
+
+            </div>
+        </div>-->
+
+
+
+
 		</tr>
 
 	</div>
@@ -175,7 +214,7 @@
          });
      </script>
      <!-- Footer -->
-     <footer style="background-color: black; color: #737272">
+     <footer style="background-color: black; color: #737272" class="d-flex justify-content-center mt-10">
          <p>&copy; 2023 Pizza-Pronto. Alle Rechte vorbehalten.</p>
      </footer>
      </body>

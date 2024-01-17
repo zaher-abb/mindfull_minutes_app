@@ -82,8 +82,11 @@
         <tr th:each=" voucher : ${vouchers}" th:id="'row-' + ${voucher.getVoucherID()}">
             <td th:text="${voucher.getVoucherID()}"></td>
             <td th:text="${voucher.getSerialNumber()}"></td>
-            <td th:text="${voucher.getAmount()}"></td>
-            <td th:text="${voucher.getAvailable()}"></td>
+<!--            <td th:text="${voucher.getAmount()}"></td>-->
+            <td th:text="${voucher.getAmount()} + '&euro;'"></td>
+
+
+        <td th:text="${voucher.getAvailable()}"></td>
             <td th:text="${voucher.getPin()}"></td>
             <td>
                 <button class="btn btn-danger btn-sm custom-btn d-flex align-items-center justify-content-center" > <a class="nav-link active"

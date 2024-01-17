@@ -89,7 +89,7 @@
       <td th:text="${order.getOrderId()}"></td>
       <td th:text="${order.getCreatDate()}"></td>
       <td th:text="${order.getDeliveryDate()}"></td>
-      <td th:text="${order.getTotalAmount()}"></td>
+      <td th:text="${order.getTotalAmount()} + '&euro;'"></td>
       <td th:text="${order.getStatus()}"></td>
       <td>
         <a type="button" class="btn btn-success" th:href="@{/Order/ready(orderId=${order.getOrderId()})}">READY</a>
