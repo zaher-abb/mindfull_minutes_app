@@ -19,10 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Observable;
 
 @Controller
 @RequestMapping("/User")
-public class UserController {
+public class UserController  {
 
 
     @Autowired
@@ -37,7 +38,8 @@ public class UserController {
 
     @Autowired
     AdressRepository adressRepository;
-
+    
+  
     @GetMapping("/register")
     public String viewRgisterPage(Model model) {
         model.addAttribute("user", new Customer());
@@ -187,4 +189,6 @@ public class UserController {
        model.addAttribute("employeeList", employeeList);
         return "manageStaff";
     }
+    
+ 
 }

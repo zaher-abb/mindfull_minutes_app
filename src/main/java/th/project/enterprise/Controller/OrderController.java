@@ -17,11 +17,12 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Observable;
 
 
 @Controller
 @RequestMapping("/Order")
-public class OrderController {
+public class OrderController  {
 
     @Autowired
     OrderService orderService;
@@ -35,7 +36,7 @@ public class OrderController {
     AdressService adressService;
     @Autowired
     EmailService emailService;
-
+    
 
     @GetMapping("/CreatOrder")
     public String creatOrder(Principal principal, Model model) {
@@ -173,6 +174,11 @@ public class OrderController {
             Order order1 = orderService.getOrderByOrderId(orderId);
 
             order1.setStatus(Status.CONFIRMED);
+            
+            orderService.addObserver(userService);
+            
+           orderService.notifUsers();
+    
             cartService.deleteAllCartIteamByUserId(user1.getId());
             orderIteamService.deleteOrderIteamAfterConfrmation(user1.getId());
 

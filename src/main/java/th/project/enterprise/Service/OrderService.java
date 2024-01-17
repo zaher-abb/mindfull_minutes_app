@@ -3,17 +3,19 @@ package th.project.enterprise.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Observable;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class OrderService {
+public class OrderService extends Observable {
 
     @Autowired
     OrderRepository orderRepository;
@@ -35,6 +37,8 @@ public class OrderService {
         LocalDateTime Date = LocalDateTime.now();
         Order order1 = new Order(Date, user, totalAmount);
         orderRepository.save(order1);
+   
+    
     }
 
     public Order getOrder(long uid) {
@@ -126,6 +130,11 @@ public class OrderService {
   public void setOrderStatusToReady(long id){
         orderRepository.setOrderStatusToReady(id);
   }
+  
+  public void notifUsers(){
+      setChanged();
+      notifyObservers();
+    }
 }
 
 
