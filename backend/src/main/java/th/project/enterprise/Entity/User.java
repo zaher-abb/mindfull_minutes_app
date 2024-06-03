@@ -29,7 +29,6 @@ public abstract class User {
     private Adress adress;
 
     private String roles;
-    private Gender gender;
     private LocalDate dateOfBirth;
 
     @NotNull
