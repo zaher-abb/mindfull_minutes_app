@@ -1,0 +1,32 @@
+<div class="login-form">
+  <h1>Mindfull Mintes Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email">
+      @if(email?.invalid && (email?.dirty || email?.touched)){
+        @if(email?.hasError('required')){
+          <div class="text-danger">Email is required.</div>
+        }
+        @if(email?.hasError('email')){
+          <div class="text-danger">Invalid email format.</div>
+        }
+      }
+    </div>
+    <div class="mb-3">
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password" minlength="8">
+      @if (password?.invalid && (password?.dirty || password?.touched)) {
+        <div>
+          @if (password?.hasError('required')) {
+            <div class="text-danger">Password is required.</div>
+          }
+          @if (password?.hasError('minlength')) {
+            <div class="text-danger">Password min length is 8 digits.</div>
+          }
+        </div>
+      }
+    </div>
+    <button type="submit" class="btn btn-primary mx-auto d-block w-100" [disabled]="loginForm.invalid || !loginForm.valid">Login</button>
+  </form>
+</div>

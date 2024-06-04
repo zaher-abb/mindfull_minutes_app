@@ -31,3 +31,49 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Angular ###
+
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+Frontend/mux-app/dist
+Frontend/mux-app/tmp
+Frontend/mux-app/out-tsc
+Frontend/mux-app/bazel-out
+
+# Node
+Frontend/mux-app/node_modules
+Frontend/mux-app/npm-debug.log
+Frontend/mux-app/yarn-error.log
+
+# IDEs and editors
+Frontend/mux-app/.idea/
+Frontend/mux-app/.project
+Frontend/mux-app/.classpath
+Frontend/mux-app/.c9/
+Frontend/mux-app/*.launch
+Frontend/mux-app/.settings/
+Frontend/mux-app/*.sublime-workspace
+
+# Visual Studio Code
+Frontend/mux-app/.vscode/*
+Frontend/mux-app/!.vscode/settings.json
+Frontend/mux-app/!.vscode/tasks.json
+Frontend/mux-app/!.vscode/launch.json
+Frontend/mux-app/!.vscode/extensions.json
+Frontend/mux-app/.history/*
+
+# Miscellaneous
+Frontend/mux-app/.angular/cache
+Frontend/mux-app/.sass-cache/
+Frontend/mux-app/connect.lock
+Frontend/mux-app/coverage
+Frontend/mux-app/libpeerconnection.log
+Frontend/mux-apptestem.log
+Frontend/mux-app/typings
+
+# System files
+Frontend/mux-app/.DS_Store
+Frontend/mux-app/Thumbs.db
