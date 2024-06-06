@@ -1,6 +1,10 @@
 package th.project.enterprise.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import th.project.enterprise.Entity.*;
 import th.project.enterprise.Repository.AdressRepository;
 import th.project.enterprise.Service.AdressService;
@@ -12,18 +16,15 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "http://localhost:4200") // Allow requests from Angular app
-@RequestMapping("/User")
+@RequestMapping("/api/auth")
 public class UserController  {
 
 
@@ -36,11 +37,10 @@ public class UserController  {
     @Autowired
     AdressService adressService;
 
-
     @Autowired
     AdressRepository adressRepository;
-    
-  
+
+
     @GetMapping("/register")
     public String viewRgisterPage(Model model) {
         model.addAttribute("user", new Customer());
@@ -62,7 +62,6 @@ public class UserController  {
           emailService.registrationConfirmationEmail(user);
         } catch (MailException ignored) {
 
-
         }
         return "login";
     }
@@ -77,7 +76,9 @@ public class UserController  {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+
+        System.out.println("test");
+        return "";
     }
 
     @GetMapping("/logout")

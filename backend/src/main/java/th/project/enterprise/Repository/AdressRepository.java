@@ -16,9 +16,5 @@ public interface AdressRepository extends CrudRepository<Adress, Long> {
             "and a.country=:country and a.zip=:zip")
     Adress getIdAressThatAlreadyexisted(String st, String hn, String city, String country, int zip);
 
-    @Modifying
-    @Query("update Order o set o.adress=:adr where o.orderId=:oid")
-    void updateOrderAdress(Adress adr, long oid);
-
 
 }

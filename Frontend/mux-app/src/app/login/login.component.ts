@@ -1,7 +1,9 @@
-import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {JsonPipe} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,private router:Router) {
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required,Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -24,17 +27,19 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-
-      // Implement your login API call here
-
-      // Redirect to the appropriate dashboard based on role
-      if (email === 'user@example.com') {
-        // Redirect to user dashboard
-        this.router.navigate(['/user-dashboard']);
-      } else if (email === 'admin@example.com') {
-        // Redirect to admin dashboard
-        this.router.navigate(['/admin-dashboard']);
-      }
+      this.authService.login({email, password}).subscribe(
+        (response) => {
+          if (response.role === 'ROLE_USER') {
+            this.router.navigate(['/user-dashboard']);
+          } else if (response.role === 'ROLE_ADMIN') {
+            this.router.navigate(['/admin-dashboard']);
+          }
+        },
+        (error) => {
+          console.error('Login failed', error);
+          // Handle login error (e.g., show error message to the user)
+        }
+      );
     }
   }
 

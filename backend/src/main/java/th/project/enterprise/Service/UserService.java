@@ -20,10 +20,10 @@ public class UserService  implements UserDetailsService,java.util.Observer {
 
     @Autowired
     private UserRepoistory userRepoistory;
-    
-    @Autowired
-    private MessageService messageService;
-    
+//
+//    @Autowired
+//    private MessageService messageService;
+//
  
     public void creatUser(Customer user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -103,7 +103,7 @@ public class UserService  implements UserDetailsService,java.util.Observer {
         for (Employee employee : admins) {
             mailList.add(employee.getEmail());
         }
-        messageService.sendMail(mailList);
+//        messageService.sendMail(mailList);
     }
     
 }

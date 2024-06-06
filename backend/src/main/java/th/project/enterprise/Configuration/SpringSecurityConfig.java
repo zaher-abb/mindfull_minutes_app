@@ -38,19 +38,25 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/Cart/**", "/Contact/**").authenticated()
-                .antMatchers("/Admin/**").hasRole("ADMIN")
-                .antMatchers(PUBLIC_MATCHES).permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/User/login")
-                .defaultSuccessUrl("/User/default", true)
-                .permitAll()
                 .and()
-                .logout()
-                .logoutUrl("/User/logout")
-                .logoutSuccessUrl("/Home")
-                .permitAll();
+                .logout().permitAll();
+//                .antMatchers("/Cart/**", "/Contact/**").authenticated()
+//                .antMatchers("/Admin/**").hasRole("ADMIN")
+//                .antMatchers(PUBLIC_MATCHES).permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/User/login")
+//                .defaultSuccessUrl("/User/default", true)
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/User/logout")
+//                .logoutSuccessUrl("/Home")
+//                .permitAll();
     }
 
     public AuthenticationProvider authProvider() {
